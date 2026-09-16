@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EPSO Auth Test</title>
+</head>
+<body>
+
+  <!-- VIEW 1: Login Screen -->
+  <div id="login-section">
+    <h2>EPSO Reasoning Prep</h2>
+    <input type="text" id="username-input" placeholder="Enter your username">
+    <button id="login-btn">Continue</button>
+    
+    <div id="loading-indicator" hidden>
+      <p>⏳ Connecting to Google Sheets...</p>
+    </div>
+  </div>
+
+  <!-- VIEW 2: Welcome Screen -->
+  <div id="welcome-section" hidden>
+    <h2 id="welcome-message"></h2>
+    <p>Your session is active and stored locally.</p>
+    <button id="logout-btn">Log Out</button>
+  </div>
+
+  <script type="module">
+    import { handleUserLogin } from './user.js';
+
+    const loginSection = document.getElementById('login-section');
+    const welcomeSection = document.getElementById('welcome-section');
+    const welcomeMsg = document.getElementById('welcome-message');
+    const usernameInput = document.getElementById('username-input');
+    const loginBtn = document.getElementById('login-btn');
+    const logoutBtn = document.getElementById('logout-btn');
+
+    loginBtn.addEventListener('click', async () => {
+      const result = await handleUserLogin(usernameInput.value);
+
+      if (result.success) {
+        loginSection.hidden = true;
+        welcomeSection.hidden = false;
+
+        if (result.isNew) {
+          welcomeMsg.textContent = `Welcome, ${result.username}! Account created in Google Sheets.`;
+        } else {
+          welcomeMsg.textContent = `Welcome back, ${result.username}!`;
+        }
+      }
+    });
+
+    logoutBtn.addEventListener('click', () => {
+      localStorage.removeItem('epso_current_user');
+      usernameInput.value = '';
+      welcomeSection.hidden = true;
+      loginSection.hidden = false;
+    });
+  </script>
+</body>
+</html>
