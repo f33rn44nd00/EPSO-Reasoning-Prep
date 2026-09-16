@@ -1,4 +1,4 @@
-const API_URL = "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL";
+const API_URL = "https://script.google.com/macros/s/AKfycbwzUfRD6R0ma0N5-YPnNBS70BGiW_hVzj6jwOzPLeD7H_YGAG59RX7U1xcn_YYkfueG/exec";
 
 /**
  * General GET request helper
