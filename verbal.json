@@ -1,0 +1,28 @@
+[
+  {
+    "id": "v_001",
+    "prompt": "In the 1960s, the U.S. started vaccinating kids for measles. As expected, children stopped getting measles. But something else happened. Childhood deaths from all infectious diseases plummeted. Scientists saw the same phenomenon when the vaccine was introduced elsewhere around the world. Now there's an obvious answer to the mystery: children who get the measles vaccine are probably more likely to get better healthcare in general. But Michael Mina and his colleagues have found there's more going on than that simple answer. “We found measles predisposes children to all other infectious diseases for up to a few years,” Mina says. Like many viruses, measles is known to suppress the immune system for a few weeks after an infection. But previous studies in monkeys have suggested that measles takes this suppression to a whole new level: it erases immune pro￾tection to other diseases. (National Public Radio)",
+    "options": [
+      "A. Children who catch measles will also catch other diseases.",
+      "B. Children who received the measles vaccine receive better healthcare overall.",
+      "C. Scientists have found evidence that measles may reduce immunity to other diseases.",  
+      "D. While studies have found what measles did to monkeys, the same cannot be said for humans."
+    ],
+    "correctIndex": 2,
+    "tags": ["reading_comprehension", "deduction"],
+    "explanation": "Cannot say. While measles “predisposes children to all other infectious diseases for up to a few years” the passage does not say whether those who catch measles definitely will catch other diseases. B. Cannot say. The passage suggests that this is probably the case, but not that it is for certain.C. True. The passage says that “studies in monkeys have suggested that measles … erases immune protection to other diseases”. D. Cannot say. While the passage only refers to monkeys, it does not exclude humans, meaning that it could also apply to them."
+  },
+  {
+    "id": "v_002",
+    "prompt": "Sample question text or passage reading statement goes here...",
+    "options": [
+      "First possible answer choice",
+      "Second possible answer choice",
+      "Third possible answer choice",
+      "Fourth possible answer choice"
+    ],
+    "correctIndex": 1,
+    "tags": ["reading_comprehension", "deduction"],
+    "explanation": "Detailed explanation of why Option B (index 1) is correct."
+  }
+]
