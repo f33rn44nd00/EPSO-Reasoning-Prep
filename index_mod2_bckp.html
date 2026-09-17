@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EPSO Auth & Question Loader Test</title>
+</head>
+<body>
+
+  <!-- VIEW 1: Login Screen -->
+  <div id="login-section">
+    <h2>EPSO Reasoning Prep</h2>
+    <input type="text" id="username-input" placeholder="Enter your username">
+    <button id="login-btn">Continue</button>
+    
+    <div id="loading-indicator" hidden>
+      <p>⏳ Connecting to Google Sheets...</p>
+    </div>
+  </div>
+
+  <!-- VIEW 2: Welcome Screen & Module 2 Controls -->
+  <div id="welcome-section" hidden>
+    <h2 id="welcome-message"></h2>
+    <p>Your session is active and stored locally.</p>
+    <button id="logout-btn">Log Out</button>
+
+    <hr style="margin: 20px 0;">
+
+    <!-- MODULE 2 TEST CONTROLS -->
+    <h3>Module 2: Question Loader Test</h3>
+    <div style="margin-bottom: 10px;">
+      <label for="category-select">Category: </label>
+      <select id="category-select">
+        <option value="verbal">Verbal</option>
+        <option value="numerical">Numerical</option>
+        <option value="abstract">Abstract</option>
+      </select>
+    </div>
+
+    <div style="margin-bottom: 10px;">
+      <label>
+        <input type="checkbox" id="allow-repeats-cb">
+        Allow previously answered questions
+      </label>
+    </div>
+
+    <button id="load-questions-btn">Load Session Questions</button>
+
+    <div style="margin-top: 15px;">
+      <h4>Output Payload:</h4>
+      <pre id="questions-output" style="background: #f4f4f4; padding: 10px; max-height: 400px; overflow: auto; border: 1px solid #ccc;"></pre>
+    </div>
+  </div>
+
+  <script type="module">
+    import { handleUserLogin } from './user.js';
+    import { initTestSession } from './questions.js';
+
+    const loginSection = document.getElementById('login-section');
+    const welcomeSection = document.getElementById('welcome-section');
+    const welcomeMsg = document.getElementById('welcome-message');
+    const usernameInput = document.getElementById('username-input');
+    const loginBtn = document.getElementById('login-btn');
+    const logoutBtn = document.getElementById('logout-btn');
+
+    // Module 2 DOM Elements
+    const categorySelect = document.getElementById('category-select');
+    const allowRepeatsCb = document.getElementById('allow-repeats-cb');
+    const loadQuestionsBtn = document.getElementById('load-questions-btn');
+    const questionsOutput = document.getElementById('questions-output');
+
+    loginBtn.addEventListener('click', async () => {
+      const result = await handleUserLogin(usernameInput.value);
+
+      if (result.success) {
+        loginSection.hidden = true;
+        welcomeSection.hidden = false;
+
+        if (result.isNew) {
+          welcomeMsg.textContent = `Welcome, ${result.username}! Account created in Google Sheets.`;
+        } else {
+          welcomeMsg.textContent = `Welcome back, ${result.username}!`;
+        }
+      }
+    });
+
+    logoutBtn.addEventListener('click', () => {
+      localStorage.removeItem('epso_current_user');
+      usernameInput.value = '';
+      questionsOutput.textContent = '';
+      welcomeSection.hidden = true;
+      loginSection.hidden = false;
+    });
+
+    // Module 2 Execution Handler
+    loadQuestionsBtn.addEventListener('click', async () => {
+      questionsOutput.textContent = "⏳ Fetching and processing question bank...";
+      try {
+        const sessionQuestions = await initTestSession(categorySelect.value, allowRepeatsCb.checked);
+        questionsOutput.textContent = JSON.stringify(sessionQuestions, null, 2);
+      } catch (err) {
+        questionsOutput.textContent = `❌ Error: ${err.message}`;
+      }
+    });
+  </script>
+</body>
+</html>

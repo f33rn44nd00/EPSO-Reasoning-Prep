@@ -33,26 +33,27 @@ function shuffleAndSample(array, size = 25) {
  * Main loader orchestrator
  * @param {string} category - 'verbal', 'numerical', or 'abstract'
  * @param {boolean} allowRepeats - If true, ignores seen questions history
+ * @param {Array<string>} seenIds - User's answered question IDs passed from backend user state
  */
-export async function initTestSession(category = "verbal", allowRepeats = false) {
+export async function initTestSession(category = "verbal", allowRepeats = false, seenIds = []) {
   try {
-    const response = await fetch(`./${category}.json`);
+    const jsonUrl = new URL(`./${category}.json`, import.meta.url).href;
+    const response = await fetch(jsonUrl);
+    
     if (!response.ok) {
       throw new Error(`Failed to load ${category}.json (${response.status})`);
     }
 
     const fullBank = await response.json();
-    const seenIds = getSeenIds();
 
     let pool = fullBank;
-    if (!allowRepeats) {
+    if (!allowRepeats && seenIds.length > 0) {
       const unseen = fullBank.filter((q) => !seenIds.includes(q.id));
       if (unseen.length > 0) pool = unseen;
     }
 
     const selected = shuffleAndSample(pool, 25);
 
-    // Initialize session state tracking fields for each selected question
     return selected.map((q) => ({
       ...q,
       selected_answer: null,

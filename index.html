@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EPSO Auth & Question Loader Test</title>
+  <title>EPSO Auth, Loader & Engine Test</title>
 </head>
 <body>
 
@@ -18,7 +18,7 @@
     </div>
   </div>
 
-  <!-- VIEW 2: Welcome Screen & Module 2 Controls -->
+  <!-- VIEW 2: Welcome Screen & Test Configuration -->
   <div id="welcome-section" hidden>
     <h2 id="welcome-message"></h2>
     <p>Your session is active and stored locally.</p>
@@ -26,8 +26,7 @@
 
     <hr style="margin: 20px 0;">
 
-    <!-- MODULE 2 TEST CONTROLS -->
-    <h3>Module 2: Question Loader Test</h3>
+    <h3>Module 3: Test Engine Setup</h3>
     <div style="margin-bottom: 10px;">
       <label for="category-select">Category: </label>
       <select id="category-select">
@@ -44,35 +43,94 @@
       </label>
     </div>
 
-    <button id="load-questions-btn">Load Session Questions</button>
+    <button id="start-test-btn">Start Test Session</button>
+  </div>
 
-    <div style="margin-top: 15px;">
-      <h4>Output Payload:</h4>
-      <pre id="questions-output" style="background: #f4f4f4; padding: 10px; max-height: 400px; overflow: auto; border: 1px solid #ccc;"></pre>
+  <!-- VIEW 3: Test Engine Screen -->
+  <div id="test-section" hidden style="margin-top: 20px; max-width: 700px;">
+    <!-- Top Header & Timer Controls -->
+    <div style="display: flex; justify-content: space-between; align-items: center; background: #eee; padding: 10px;">
+      <span id="question-counter" style="font-weight: bold;">Question 1 of 25</span>
+      <div>
+        <span id="timer-display" style="margin-right: 10px;">Time: [Hidden]</span>
+        <button id="toggle-timer-btn">Show Time Remaining</button>
+      </div>
     </div>
+
+    <!-- Question Box -->
+    <div style="border: 1px solid #ccc; padding: 15px; margin: 15px 0;">
+      <div style="text-align: right;">
+        <button id="flag-btn">🏳️ Flag for Review</button>
+      </div>
+      <div id="question-content" style="margin-top: 10px;"></div>
+      <div id="options-container" style="margin-top: 15px;"></div>
+    </div>
+
+    <!-- Navigation Controls -->
+    <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+      <button id="prev-btn">Previous</button>
+      <button id="next-btn">Next</button>
+      <button id="finish-btn" style="background-color: #d32f2f; color: white;">Finish & Submit Test</button>
+    </div>
+
+    <!-- Question Palette -->
+    <h4>Question Palette</h4>
+    <div id="palette-container" style="display: flex; flex-wrap: wrap; gap: 5px;"></div>
+  </div>
+
+  <!-- VIEW 4: Test Output Summary -->
+  <div id="summary-section" hidden style="margin-top: 20px;">
+    <h3>Test Completed!</h3>
+    <h4>Module 3 Session Output Payload:</h4>
+    <pre id="engine-output" style="background: #f4f4f4; padding: 10px; max-height: 400px; overflow: auto; border: 1px solid #ccc;"></pre>
+    <button id="retake-btn">Return to Setup</button>
   </div>
 
   <script type="module">
     import { handleUserLogin } from './user.js';
     import { initTestSession } from './questions.js';
+    import { startTestSession, finishTestSession } from './engine.js';
 
+    // Core Views
     const loginSection = document.getElementById('login-section');
     const welcomeSection = document.getElementById('welcome-section');
+    const testSection = document.getElementById('test-section');
+    const summarySection = document.getElementById('summary-section');
+
+    // Auth Elements
     const welcomeMsg = document.getElementById('welcome-message');
     const usernameInput = document.getElementById('username-input');
     const loginBtn = document.getElementById('login-btn');
     const logoutBtn = document.getElementById('logout-btn');
 
-    // Module 2 DOM Elements
+    // Test Config Elements
     const categorySelect = document.getElementById('category-select');
     const allowRepeatsCb = document.getElementById('allow-repeats-cb');
-    const loadQuestionsBtn = document.getElementById('load-questions-btn');
-    const questionsOutput = document.getElementById('questions-output');
+    const startTestBtn = document.getElementById('start-test-btn');
+    const retakeBtn = document.getElementById('retake-btn');
+    const engineOutput = document.getElementById('engine-output');
+
+    // Module 3 Engine Elements Mapping
+    const domElements = {
+      questionCounter: document.getElementById('question-counter'),
+      timerDisplay: document.getElementById('timer-display'),
+      toggleTimerBtn: document.getElementById('toggle-timer-btn'),
+      flagBtn: document.getElementById('flag-btn'),
+      questionContent: document.getElementById('question-content'),
+      optionsContainer: document.getElementById('options-container'),
+      prevBtn: document.getElementById('prev-btn'),
+      nextBtn: document.getElementById('next-btn'),
+      finishBtn: document.getElementById('finish-btn'),
+      paletteContainer: document.getElementById('palette-container')
+    };
+
+    let currentUserSeenIds = [];
 
     loginBtn.addEventListener('click', async () => {
       const result = await handleUserLogin(usernameInput.value);
 
       if (result.success) {
+        currentUserSeenIds = result.seen_ids || [];
         loginSection.hidden = true;
         welcomeSection.hidden = false;
 
@@ -87,20 +145,45 @@
     logoutBtn.addEventListener('click', () => {
       localStorage.removeItem('epso_current_user');
       usernameInput.value = '';
-      questionsOutput.textContent = '';
       welcomeSection.hidden = true;
       loginSection.hidden = false;
     });
 
-    // Module 2 Execution Handler
-    loadQuestionsBtn.addEventListener('click', async () => {
-      questionsOutput.textContent = "⏳ Fetching and processing question bank...";
+    // Start Test Session Execution
+    startTestBtn.addEventListener('click', async () => {
       try {
-        const sessionQuestions = await initTestSession(categorySelect.value, allowRepeatsCb.checked);
-        questionsOutput.textContent = JSON.stringify(sessionQuestions, null, 2);
+        startTestBtn.disabled = true;
+        startTestBtn.textContent = "Loading...";
+
+        const sessionQuestions = await initTestSession(
+          categorySelect.value, 
+          allowRepeatsCb.checked, 
+          currentUserSeenIds
+        );
+
+        welcomeSection.hidden = true;
+        testSection.hidden = false;
+
+        startTestSession(sessionQuestions, domElements);
       } catch (err) {
-        questionsOutput.textContent = `❌ Error: ${err.message}`;
+        alert(`Error launching test: ${err.message}`);
+      } finally {
+        startTestBtn.disabled = false;
+        startTestBtn.textContent = "Start Test Session";
       }
+    });
+
+    // Intercept Finish Button to View Payload
+    domElements.finishBtn.addEventListener('click', () => {
+      const payload = finishTestSession();
+      testSection.hidden = true;
+      summarySection.hidden = false;
+      engineOutput.textContent = JSON.stringify(payload, null, 2);
+    });
+
+    retakeBtn.addEventListener('click', () => {
+      summarySection.hidden = true;
+      welcomeSection.hidden = false;
     });
   </script>
 </body>
