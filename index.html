@@ -3,7 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EPSO Auth, Loader & Engine Test</title>
+  <title>EPSO Reasoning Prep - Modules 1-4</title>
+  <style>
+    body { font-family: sans-serif; margin: 20px; line-height: 1.4; }
+    .report-grid { display: flex; gap: 20px; margin-top: 15px; }
+    .left-stream { flex: 2; border-right: 1px solid #ccc; padding-right: 20px; }
+    .right-diagnostics { flex: 1; background: #fafafa; padding: 15px; border-radius: 4px; }
+    .q-card { border: 1px solid #ddd; padding: 12px; margin-bottom: 15px; border-radius: 4px; }
+    .q-card.correct { border-left: 5px solid #2e7d32; }
+    .q-card.incorrect { border-left: 5px solid #c62828; }
+    .opt-review { padding: 6px 10px; margin: 4px 0; border-radius: 3px; font-size: 0.95rem; }
+    .opt-correct { background-color: #c8e6c9; font-weight: bold; }
+    .opt-wrong { background-color: #ffcdd2; text-decoration: line-through; }
+    .tag-badge { display: inline-block; background: #e0e0e0; padding: 2px 6px; border-radius: 3px; font-size: 0.8rem; margin-right: 4px; }
+    .diag-section { margin-bottom: 20px; }
+    .diag-section h4 { margin-bottom: 5px; border-bottom: 1px solid #ddd; padding-bottom: 3px; }
+  </style>
 </head>
 <body>
 
@@ -26,7 +41,7 @@
 
     <hr style="margin: 20px 0;">
 
-    <h3>Module 3: Test Engine Setup</h3>
+    <h3>Test Setup</h3>
     <div style="margin-bottom: 10px;">
       <label for="category-select">Category: </label>
       <select id="category-select">
@@ -47,7 +62,7 @@
   </div>
 
   <!-- VIEW 3: Test Engine Screen -->
-  <div id="test-section" hidden style="margin-top: 20px; max-width: 700px;">
+  <div id="test-section" hidden style="margin-top: 20px; max-width: 800px;">
     <!-- Top Header & Timer Controls -->
     <div style="display: flex; justify-content: space-between; align-items: center; background: #eee; padding: 10px;">
       <span id="question-counter" style="font-weight: bold;">Question 1 of 25</span>
@@ -78,24 +93,65 @@
     <div id="palette-container" style="display: flex; flex-wrap: wrap; gap: 5px;"></div>
   </div>
 
-  <!-- VIEW 4: Test Output Summary -->
-  <div id="summary-section" hidden style="margin-top: 20px;">
-    <h3>Test Completed!</h3>
-    <h4>Module 3 Session Output Payload:</h4>
-    <pre id="engine-output" style="background: #f4f4f4; padding: 10px; max-height: 400px; overflow: auto; border: 1px solid #ccc;"></pre>
-    <button id="retake-btn">Return to Setup</button>
+  <!-- VIEW 4: Dual-Column Report View -->
+  <div id="report-section" hidden style="margin-top: 20px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; background: #f0f4f8; padding: 15px; border-radius: 4px;">
+      <h2>Test Performance Report</h2>
+      <button id="retake-btn">Return to Setup</button>
+    </div>
+
+    <div class="report-grid">
+      <!-- Left Column: Detailed Question Stream -->
+      <div class="left-stream">
+        <h3>Question Review Stream</h3>
+        <div id="review-stream-container"></div>
+      </div>
+
+      <!-- Right Column: Diagnostics Panels -->
+      <div class="right-diagnostics">
+        <div class="diag-section">
+          <h4>Overall Score</h4>
+          <p id="diag-score" style="font-size: 1.4rem; font-weight: bold; margin: 5px 0;"></p>
+          <p id="diag-pace" style="color: #555; margin: 0;"></p>
+        </div>
+
+        <div class="diag-section">
+          <h4>Missed Concept Tags</h4>
+          <ul id="diag-missed-tags" style="padding-left: 20px; margin: 5px 0;"></ul>
+        </div>
+
+        <div class="diag-section">
+          <h4>Flagged Questions (Low Confidence)</h4>
+          <ul id="diag-flagged-tags" style="padding-left: 20px; margin: 5px 0;"></ul>
+        </div>
+
+        <div class="diag-section">
+          <h4>Hesitation Tags (>1 Answer Change)</h4>
+          <ul id="diag-hesitation-tags" style="padding-left: 20px; margin: 5px 0;"></ul>
+        </div>
+
+        <div class="diag-section">
+          <h4>Time Sinks (>2x Pace)</h4>
+          <ul id="diag-time-sinks" style="padding-left: 20px; margin: 5px 0;"></ul>
+        </div>
+      </div>
+    </div>
   </div>
 
   <script type="module">
     import { handleUserLogin } from './user.js';
     import { initTestSession } from './questions.js';
     import { startTestSession, finishTestSession } from './engine.js';
+    import { generateReport, sendResultToGAS } from './analytics.js';
+
+    // REPLACE WITH YOUR PUBLISHED GAS WEB APP URL
+    const GAS_WEB_APP_URL = "YOUR_DEPLOYED_GAS_WEB_APP_URL_HERE";
 
     // Core Views
     const loginSection = document.getElementById('login-section');
     const welcomeSection = document.getElementById('welcome-section');
     const testSection = document.getElementById('test-section');
-    const summarySection = document.getElementById('summary-section');
+    const reportSection = document.getElementById('report-section');
 
     // Auth Elements
     const welcomeMsg = document.getElementById('welcome-message');
@@ -108,7 +164,6 @@
     const allowRepeatsCb = document.getElementById('allow-repeats-cb');
     const startTestBtn = document.getElementById('start-test-btn');
     const retakeBtn = document.getElementById('retake-btn');
-    const engineOutput = document.getElementById('engine-output');
 
     // Module 3 Engine Elements Mapping
     const domElements = {
@@ -124,12 +179,14 @@
       paletteContainer: document.getElementById('palette-container')
     };
 
+    let currentUsername = "";
     let currentUserSeenIds = [];
 
     loginBtn.addEventListener('click', async () => {
       const result = await handleUserLogin(usernameInput.value);
 
       if (result.success) {
+        currentUsername = result.username;
         currentUserSeenIds = result.seen_ids || [];
         loginSection.hidden = true;
         welcomeSection.hidden = false;
@@ -173,18 +230,107 @@
       }
     });
 
-    // Intercept Finish Button to View Payload
-    domElements.finishBtn.addEventListener('click', () => {
-      const payload = finishTestSession();
+    // Finish Test, Generate Report & Async Sync
+    domElements.finishBtn.addEventListener('click', async () => {
+      const sessionData = finishTestSession();
+      const report = generateReport(sessionData);
+
       testSection.hidden = true;
-      summarySection.hidden = false;
-      engineOutput.textContent = JSON.stringify(payload, null, 2);
+      reportSection.hidden = false;
+
+      renderReportView(report);
+
+      // In-Memory update of seen IDs
+      if (sessionData.answeredIds.length > 0) {
+        currentUserSeenIds = Array.from(new Set([...currentUserSeenIds, ...sessionData.answeredIds]));
+      }
+
+      // Background submission to Google Apps Script
+      if (GAS_WEB_APP_URL && GAS_WEB_APP_URL !== "YOUR_DEPLOYED_GAS_WEB_APP_URL_HERE") {
+        try {
+          await sendResultToGAS(
+            GAS_WEB_APP_URL, 
+            currentUsername, 
+            categorySelect.value, 
+            report, 
+            sessionData.answeredIds
+          );
+        } catch (err) {
+          console.warn("Cloud save issue (report is locally intact):", err);
+        }
+      }
     });
 
     retakeBtn.addEventListener('click', () => {
-      summarySection.hidden = true;
+      reportSection.hidden = true;
       welcomeSection.hidden = false;
     });
+
+    // Report Renderer
+    function renderReportView(report) {
+      // Right Column Summary Metrics
+      document.getElementById('diag-score').textContent = `${report.score} / ${report.total} (${report.percentage}%)`;
+      document.getElementById('diag-pace').textContent = `Total: ${Math.floor(report.totalTimeSpentSec / 60)}m ${report.totalTimeSpentSec % 60}s | Avg: ${report.avgTimePerQ}s / q`;
+
+      renderTagList('diag-missed-tags', report.diagnostics.missedTags);
+      renderTagList('diag-flagged-tags', report.diagnostics.flaggedTags);
+      renderTagList('diag-hesitation-tags', report.diagnostics.hesitationTags);
+
+      const sinksContainer = document.getElementById('diag-time-sinks');
+      sinksContainer.innerHTML = report.timeSinks.length > 0 
+        ? report.timeSinks.map(ts => `<li>Question ${ts.index}: <strong>${ts.timeSpentSec}s</strong></li>`).join('')
+        : "<li>None identified</li>";
+
+      // Left Column Review Stream
+      const streamContainer = document.getElementById('review-stream-container');
+      streamContainer.innerHTML = "";
+
+      report.details.forEach((q, idx) => {
+        const isCorrect = q.selected_answer === q.correctIndex;
+        const card = document.createElement('div');
+        card.className = `q-card ${isCorrect ? 'correct' : 'incorrect'}`;
+
+        const tagsHTML = (q.tags || []).map(t => `<span class="tag-badge">#${t}</span>`).join('');
+        const flagIndicator = q.was_flagged ? " 🚩 [Flagged]" : "";
+
+        let optionsHTML = "";
+        q.options.forEach((optText, optIdx) => {
+          let optClass = "opt-review";
+          if (optIdx === q.correctIndex) optClass += " opt-correct";
+          else if (optIdx === q.selected_answer) optClass += " opt-wrong";
+
+          optionsHTML += `
+            <div class="${optClass}">
+              ${String.fromCharCode(65 + optIdx)}) ${optText}
+              ${optIdx === q.correctIndex ? ' ✅' : ''}
+              ${optIdx === q.selected_answer && !isCorrect ? ' ❌ (Your choice)' : ''}
+            </div>
+          `;
+        });
+
+        card.innerHTML = `
+          <div style="display: flex; justify-content: space-between; font-size: 0.9rem; color: #555;">
+            <span><strong>Q${idx + 1}</strong> (${isCorrect ? 'Correct' : 'Incorrect'})${flagIndicator}</span>
+            <span>Time: ${q.time_spent_sec}s | Edits: ${q.change_count}</span>
+          </div>
+          <p style="margin: 8px 0;">${q.prompt}</p>
+          <div>${optionsHTML}</div>
+          <div style="margin-top: 8px; font-size: 0.85rem; color: #444; background: #fff; padding: 6px; border-left: 3px solid #007bb5;">
+            <strong>Explanation:</strong> ${q.explanation || "N/A"}
+          </div>
+          <div style="margin-top: 6px;">${tagsHTML}</div>
+        `;
+
+        streamContainer.appendChild(card);
+      });
+    }
+
+    function renderTagList(elementId, tagArray) {
+      const el = document.getElementById(elementId);
+      el.innerHTML = tagArray.length > 0
+        ? tagArray.map(item => `<li>#${item.tag} (<strong>${item.count}</strong>)</li>`).join('')
+        : "<li>None recorded</li>";
+    }
   </script>
 </body>
 </html>

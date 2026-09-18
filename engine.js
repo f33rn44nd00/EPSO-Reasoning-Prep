@@ -30,6 +30,10 @@ function startGlobalTimer() {
     if (totalTimeRemainingSec > 0) {
       totalTimeRemainingSec--;
       updateTimerDisplay();
+      
+      if (totalTimeRemainingSec === 0) {
+        alert("Global time is up!");
+      }
     }
   }, 1000);
 }
@@ -40,6 +44,7 @@ function updateTimerDisplay() {
     elements.timerDisplay.textContent = "Time: [Hidden]";
     return;
   }
+  
   const mins = String(Math.floor(totalTimeRemainingSec / 60)).padStart(2, '0');
   const secs = String(totalTimeRemainingSec % 60).padStart(2, '0');
   elements.timerDisplay.textContent = `Time Remaining: ${mins}:${secs}`;
@@ -118,6 +123,9 @@ function renderOptions(q) {
     btn.style.padding = "10px";
     btn.style.textAlign = "left";
     btn.className = "option-btn" + (q.selected_answer === optIdx ? " selected" : "");
+    btn.style.backgroundColor = (q.selected_answer === optIdx) ? "#9ad1e8" : "#fff";
+    btn.style.border = (q.selected_answer === optIdx) ? "2px solid #1a6fa4" : "1px solid #ccc";
+    btn.style.fontWeight = (q.selected_answer === optIdx) ? "bold" : "normal";
     btn.textContent = `${String.fromCharCode(65 + optIdx)}) ${optText}`;
 
     btn.onclick = () => {
