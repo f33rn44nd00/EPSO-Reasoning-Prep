@@ -234,7 +234,8 @@ export function finishTestSession() {
 
   return {
     questions: questions,
-    answeredIds: questions.filter(q => q.selected_answer !== null).map(q => q.id),
+    // Collects ALL questions that were actually rendered on screen
+    seenIds: questions.filter(q => q.view_count > 0).map(q => q.id),
     totalTimeSpentSec: questions.reduce((acc, q) => acc + q.time_spent_sec, 0)
   };
 }

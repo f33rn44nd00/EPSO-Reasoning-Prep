@@ -433,19 +433,19 @@
   },
   {
     "id": "v_028",
-    "prompt": "A panic attack is when your body experi-ences a rush of intense mental and physical symptoms. It can come on very quickly and for no apparent reason. A panic attack can be very frightening and distressing. Most panic attacks last for between 5 and 20 minutes. Some panic attacks have been reported to last up to an hour. The number of attacks you have will depend on how severe your condition is. Some people have attacks once or twice a month, while others have them several times a week. Although panic attacks are frightening, they're not danger-ous. An attack won't cause you any physical harm, and it's unlikely that you'll be admit-ted to hospital if you have one. Be aware that most of these symptoms can also be symptoms of other conditions or problems, so you may not always be experiencing a panic attack. (National Health Service)",
+    "prompt": "A panic attack is when your body experiences a rush of intense mental and physical symptoms. It can come on very quickly and for no apparent reason. A panic attack can be very frightening and distressing. Most panic attacks last for between 5 and 20 minutes. Some panic attacks have been reported to last up to an hour. The number of attacks you have will depend on how severe your condition is. Some people have attacks once or twice a month, while others have them several times a week. Although panic attacks are frightening, they're not danger-ous. An attack won't cause you any physical harm, and it's unlikely that you'll be admit-ted to hospital if you have one. Be aware that most of these symptoms can also be symptoms of other conditions or problems, so you may not always be experiencing a panic attack. (National Health Service)",
     "options": [
       "A. The triggers for panic attacks are well understood.",
       "B. In bad cases people can experience several panic attacks per day.",
       "C. While most panic attacks are brief, some can last over an hour in duration.",
       "D. A person may think they are having a panic attack when something else is wrong."
     ],
-    "correctIndex": 0,
+    "correctIndex": 3,
     "tags": [
       "textual_accuracy",
       "outside_knowledge_bias"
     ],
-    "explanation": ""
+    "explanation": "A. False. According to the passage, panic attacks can come on for no apparent reason. B. Cannot say. The highest frequency the pas￾sage mentions is several panic attacks a week, but it does not say that they cannot happen more frequently. C. Cannot say. While saying some panic attacks have been reported to last up to an hour, it does not say that they cannot last longer. D. True. As the passage states, most of the symptoms of a panic attack can also be symptoms of other conditions or problems."
   },
   {
     "id": "v_029",

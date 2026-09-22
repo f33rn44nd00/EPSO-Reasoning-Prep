@@ -10,6 +10,7 @@ function setUserLoading(isLoading) {
   if (loginBtn) loginBtn.disabled = isLoading;
 }
 
+/* Unused in current version
 export async function checkUserExists(username) {
   const usersList = await apiGet({ action: "getUsers" });
   return usersList.some(name => String(name).toLowerCase() === username.toLowerCase());
@@ -18,6 +19,7 @@ export async function checkUserExists(username) {
 export async function createRemoteUser(username) {
   return await apiPost({ action: "createUser", username: username });
 }
+*/
 
 export async function handleUserLogin(inputName) {
   const cleanName = inputName.trim();
@@ -29,15 +31,17 @@ export async function handleUserLogin(inputName) {
   setUserLoading(true);
 
   try {
-    const exists = await checkUserExists(cleanName);
-    if (!exists) {
-      await createRemoteUser(cleanName);
-    }
+    const response = await apiPost({ action: "createUser", username: cleanName });
 
-    activeUsername = cleanName;
-    localStorage.setItem("epso_current_user", cleanName);
+    activeUsername = response.username || cleanName;
+    localStorage.setItem("epso_current_user", activeUsername);
 
-    return { success: true, isNew: !exists, username: cleanName };
+    return {
+      success: true,
+      isNew: response.isNew,
+      username: activeUsername,
+      seen_ids: response.seen_ids || []
+    };
   } catch (err) {
     console.error("User login error:", err);
     alert("Could not complete login. Verify your API URL or connection.");
