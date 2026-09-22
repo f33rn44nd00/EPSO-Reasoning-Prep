@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EPSO Reasoning Prep - Modules 1-4</title>
+  <title>EPSO Reasoning Prep</title>
   <style>
     body { font-family: sans-serif; margin: 20px; line-height: 1.4; }
     .report-grid { display: flex; gap: 20px; margin-top: 15px; }
@@ -41,7 +41,7 @@
 
     <hr style="margin: 20px 0;">
 
-    <h3>Test Setup</h3>
+    <h3>Start a Test</h3>
     <div style="margin-bottom: 10px;">
       <label for="category-select">Category: </label>
       <select id="category-select">
@@ -145,7 +145,7 @@
     import { generateReport, sendResultToGAS } from './analytics.js';
 
     // REPLACE WITH YOUR PUBLISHED GAS WEB APP URL
-    const GAS_WEB_APP_URL = "YOUR_DEPLOYED_GAS_WEB_APP_URL_HERE";
+    const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwzUfRD6R0ma0N5-YPnNBS70BGiW_hVzj6jwOzPLeD7H_YGAG59RX7U1xcn_YYkfueG/exec";
 
     // Core Views
     const loginSection = document.getElementById('login-section');
@@ -192,7 +192,7 @@
         welcomeSection.hidden = false;
 
         if (result.isNew) {
-          welcomeMsg.textContent = `Welcome, ${result.username}! Account created in Google Sheets.`;
+          welcomeMsg.textContent = `Welcome, ${result.username}! Account created.`;
         } else {
           welcomeMsg.textContent = `Welcome back, ${result.username}!`;
         }
@@ -290,7 +290,7 @@
         const card = document.createElement('div');
         card.className = `q-card ${isCorrect ? 'correct' : 'incorrect'}`;
 
-        const tagsHTML = (q.tags || []).map(t => `<span class="tag-badge">#${t}</span>`).join('');
+        const tagsHTML = (q.tags || []).map(t => `<span class="tag-badge">${t.replace(/_/g, ' ')}</span>`).join('');
         const flagIndicator = q.was_flagged ? " 🚩 [Flagged]" : "";
 
         let optionsHTML = "";
@@ -328,7 +328,7 @@
     function renderTagList(elementId, tagArray) {
       const el = document.getElementById(elementId);
       el.innerHTML = tagArray.length > 0
-        ? tagArray.map(item => `<li>#${item.tag} (<strong>${item.count}</strong>)</li>`).join('')
+        ? tagArray.map(item => `<li>${item.tag.replace(/_/g, ' ')} (<strong>${item.count}</strong>)</li>`).join('')
         : "<li>None recorded</li>";
     }
   </script>
