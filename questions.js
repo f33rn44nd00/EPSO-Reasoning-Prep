@@ -1,25 +1,12 @@
-const SEEN_KEY = "epso_seen_ids";
 
-// Retrieve seen IDs from localStorage
-function getSeenIds() {
-  try {
-    return JSON.parse(localStorage.getItem(SEEN_KEY)) || [];
-  } catch (e) {
-    return [];
-  }
-}
+const CATEGORY_COUNTS = {
+  verbal: 20,
+  numerical: 4, // 4 sets of 3 questions = 12 total questions
+  abstract: 10
+};
 
-// Save a newly answered question ID to localStorage
-export function markQuestionSeen(id) {
-  const seen = getSeenIds();
-  if (!seen.includes(id)) {
-    seen.push(id);
-    localStorage.setItem(SEEN_KEY, JSON.stringify(seen));
-  }
-}
-
-// Partial Fisher-Yates shuffle to randomly sample up to N questions
-function shuffleAndSample(array, size = 25) {
+// Partial Fisher-Yates shuffle to randomly sample up to N items
+function shuffleAndSample(array, size) {
   const pool = [...array];
   const count = Math.min(size, pool.length);
   for (let i = 0; i < count; i++) {
@@ -45,17 +32,49 @@ export async function initTestSession(category = "verbal", allowRepeats = false,
     }
 
     const fullBank = await response.json();
+    let selected = [];
 
-    let pool = fullBank;
-    if (!allowRepeats && seenIds.length > 0) {
-      const unseen = fullBank.filter((q) => !seenIds.includes(q.id));
-      if (unseen.length > 0) pool = unseen;
+    if (category === "numerical") {
+      // 1. Group numerical items into sets by set_id (or fallback to q.id)
+      const groupMap = {};
+      fullBank.forEach((q) => {
+        const key = q.set_id || q.id;
+        if (!groupMap[key]) groupMap[key] = [];
+        groupMap[key].push(q);
+      });
+
+      const allSets = Object.values(groupMap);
+      let setPool = allSets;
+
+      // 2. Filter out sets where ANY question has been seen
+      if (!allowRepeats && seenIds.length > 0) {
+        const unseenSets = allSets.filter(
+          (set) => !set.some((q) => seenIds.includes(q.id))
+        );
+        if (unseenSets.length > 0) setPool = unseenSets;
+      }
+
+      // 3. Shuffle sets, pick target set count (4), and flatten back to 1D
+      const targetSetCount = CATEGORY_COUNTS.numerical;
+      const selectedSets = shuffleAndSample(setPool, targetSetCount);
+      selected = selectedSets.flat();
+
+    } else {
+      // Standard path for Verbal and Abstract
+      const targetCount = CATEGORY_COUNTS[category] || 20;
+      let pool = fullBank;
+
+      if (!allowRepeats && seenIds.length > 0) {
+        const unseen = fullBank.filter((q) => !seenIds.includes(q.id));
+        if (unseen.length > 0) pool = unseen;
+      }
+
+      selected = shuffleAndSample(pool, targetCount);
     }
-
-    const selected = shuffleAndSample(pool, 25);
 
     return selected.map((q) => ({
       ...q,
+      category: category,
       selected_answer: null,
       time_spent_sec: 0,
       view_count: 0,

@@ -3,6 +3,12 @@
  * @param {Object} sessionData - Object returned from finishTestSession()
  * @returns {Object} Structured report data
  */
+const CATEGORY_TARGETS = {
+  verbal: 105,    // 105s threshold
+  numerical: 120, // 120s threshold
+  abstract: 60    // 60s threshold
+};
+
 export function generateReport(sessionData) {
   const { questions, totalTimeSpentSec } = sessionData;
   const total = questions.length;
@@ -13,6 +19,8 @@ export function generateReport(sessionData) {
   const hesitationTagsMap = {};
   const timeSinks = [];
 
+  const category = (questions[0] && questions[0].category) ? questions[0].category : "verbal";
+  const targetTimePerQ = CATEGORY_TARGETS[category] || 105;
   const avgTimePerQ = total > 0 ? Math.round(totalTimeSpentSec / total) : 0;
 
   questions.forEach((q, idx) => {
@@ -42,11 +50,12 @@ export function generateReport(sessionData) {
     }
 
     // Identify Time Sinks (spent over 2x average pace or >120s)
-    if (q.time_spent_sec > Math.max(avgTimePerQ * 2, 120)) {
+    if (q.time_spent_sec > targetTimePerQ) {
       timeSinks.push({ 
         index: idx + 1, 
         id: q.id, 
-        timeSpentSec: q.time_spent_sec 
+        timeSpentSec: q.time_spent_sec,
+        targetSec: targetTimePerQ
       });
     }
   });

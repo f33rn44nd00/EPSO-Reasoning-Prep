@@ -2,7 +2,7 @@ let questions = [];
 let currentIndex = 0;
 let focusStartTimestamp = null;
 let timerInterval = null;
-let totalTimeRemainingSec = 20 * 60; // 20 min default budget
+let totalTimeRemainingSec = 25 * 60; // 25 min default budget
 let timerVisible = false;
 
 // DOM Element References (bound on init)
@@ -11,11 +11,19 @@ let elements = {};
 /**
  * Initializes the Module 3 Engine
  */
-export function startTestSession(sessionQuestions, domElements) {
+const CATEGORY_TIMERS = {
+  verbal: 105,    // 105s/q (35 min / 20 q)
+  numerical: 120, // 120s/q (20 min / 10 q)
+  abstract: 60    // 60s/q  (10 min / 10 q)
+};
+
+export function startTestSession(sessionQuestions, domElements, category = "verbal") {
   questions = sessionQuestions;
   currentIndex = 0;
   elements = domElements;
-  totalTimeRemainingSec = questions.length * 60; // 1 min per question default
+
+  const secPerQuestion = CATEGORY_TIMERS[category] || 105;
+  totalTimeRemainingSec = questions.length * secPerQuestion;
 
   setupEventListeners();
   startGlobalTimer();
@@ -89,12 +97,13 @@ function renderVerbalQuestion(q) {
 }
 
 function renderNumericalQuestion(q) {
-  // Container isolated for future table/chart parsing
-  const tableHTML = q.tableData ? `<div class="numerical-table-wrapper">${q.tableData}</div>` : "";
+  const imageFile = q.set_image || `${q.id}.png`;
   elements.questionContent.innerHTML = `
-    <div class="prompt-numerical">
-      ${tableHTML}
-      <p style="font-size: 1.05rem; margin-top: 10px;">${q.prompt}</p>
+    <div class="prompt-numerical" style="text-align: center;">
+      <img src="./images/${imageFile}" alt="Numerical Reference Chart" style="max-width: 100%; height: auto;" 
+           onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"/>
+      <p style="display:none; color: #888;">[ Reference image: ./images/${imageFile} ]</p>
+      <p style="font-size: 1.05rem; margin-top: 10px; text-align: left;">${q.prompt}</p>
     </div>
   `;
 }
@@ -232,10 +241,11 @@ export function finishTestSession() {
   clearInterval(timerInterval);
   recordElapsedFocusTime();
 
+  const viewedIds = questions.filter(q => q.view_count > 0).map(q => q.id);
+
   return {
     questions: questions,
-    // Collects ALL questions that were actually rendered on screen
-    seenIds: questions.filter(q => q.view_count > 0).map(q => q.id),
+    answeredIds: viewedIds,
     totalTimeSpentSec: questions.reduce((acc, q) => acc + q.time_spent_sec, 0)
   };
 }

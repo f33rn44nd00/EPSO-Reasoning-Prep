@@ -221,7 +221,7 @@
         welcomeSection.hidden = true;
         testSection.hidden = false;
 
-        startTestSession(sessionQuestions, domElements);
+        startTestSession(sessionQuestions, domElements, categorySelect.value);
       } catch (err) {
         alert(`Error launching test: ${err.message}`);
       } finally {
@@ -246,7 +246,7 @@
       }
 
       // Background submission to Google Apps Script
-      if (GAS_WEB_APP_URL && GAS_WEB_APP_URL !== "YOUR_DEPLOYED_GAS_WEB_APP_URL_HERE") {
+      if (GAS_WEB_APP_URL) {
         try {
           await sendResultToGAS(
             GAS_WEB_APP_URL, 
