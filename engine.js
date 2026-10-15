@@ -135,7 +135,7 @@ function renderOptions(q) {
     btn.style.backgroundColor = (q.selected_answer === optIdx) ? "#9ad1e8" : "#fff";
     btn.style.border = (q.selected_answer === optIdx) ? "2px solid #1a6fa4" : "1px solid #ccc";
     btn.style.fontWeight = (q.selected_answer === optIdx) ? "bold" : "normal";
-    btn.textContent = `${String.fromCharCode(65 + optIdx)}) ${optText}`;
+    btn.textContent = optText;
 
     btn.onclick = () => {
       if (q.selected_answer !== null && q.selected_answer !== optIdx) {
@@ -192,15 +192,6 @@ function setupEventListeners() {
     elements.toggleTimerBtn.textContent = timerVisible ? "Hide Time" : "Show Time Remaining";
     updateTimerDisplay();
   };
-
-  // Tab switch focus handling
-  document.addEventListener("visibilitychange", () => {
-    if (document.hidden) {
-      recordElapsedFocusTime();
-    } else {
-      focusStartTimestamp = Date.now();
-    }
-  });
 }
 
 // Question Palette Matrix
@@ -249,3 +240,12 @@ export function finishTestSession() {
     totalTimeSpentSec: questions.reduce((acc, q) => acc + q.time_spent_sec, 0)
   };
 }
+
+// Tab switch focus handling
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) {
+      recordElapsedFocusTime();
+    } else {
+      focusStartTimestamp = Date.now();
+    }
+  });

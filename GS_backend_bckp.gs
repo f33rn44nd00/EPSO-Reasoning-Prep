@@ -98,7 +98,7 @@ function doGet(e) {
     var usersData = userSheet.getDataRange().getValues();
     usersData.shift(); // Remove header row
     for (var i = 0; i < usersData.length; i++) {
-      if (String(usersData[i][0]).toLowerCase() === String(data.username).toLowerCase()) {
+      if (String(usersData[i][0]).toLowerCase() === String(username).toLowerCase()) {
         var rawSeen = usersData[i][2];
         return ContentService.createTextOutput(JSON.stringify({
           username: usersData[i][0],
