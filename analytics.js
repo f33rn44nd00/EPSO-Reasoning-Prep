@@ -97,7 +97,14 @@ export async function sendResultToGAS(gasUrl, username, category, reportData, an
     total: reportData.total,
     timeSpentSec: reportData.totalTimeSpentSec,
     answeredIds: answeredIds,
-    details: reportData.details
+    details: reportData.details.map(q => ({
+      id: q.id,
+      selected_answer: q.selected_answer,
+      time_spent_sec: q.time_spent_sec,
+      change_count: q.change_count,
+      was_flagged: q.was_flagged,
+      view_count: q.view_count
+    }))
   };
 
   try {

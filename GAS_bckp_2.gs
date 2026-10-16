@@ -1,0 +1,112 @@
+function doPost(e) {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var data = JSON.parse(e.postData.contents);
+
+  // 1. Handle User Login / Registration in 'Users' tab
+  if (data.action === "createUser" || data.action === "loginUser") {
+    var userSheet = ss.getSheetByName("Users");
+    var inputUsername = String(data.username || "").trim();
+
+    if (!inputUsername) {
+      return ContentService.createTextOutput(JSON.stringify({ error: "invalid_username" }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+
+    // Native C++ lookup directly on Column A
+    var cell = userSheet.getRange("A:A")
+      .createTextFinder(inputUsername)
+      .matchEntireCell(true)
+      .equalsIgnoreCase(true)
+      .findNext();
+
+    if (cell) {
+      var row = cell.getRow();
+      var rawSeen = userSheet.getRange(row, 3).getValue(); // Fetch Column C directly
+      var existingSeen = rawSeen ? JSON.parse(rawSeen) : [];
+      var storedUsername = userSheet.getRange(row, 1).getValue();
+
+      return ContentService.createTextOutput(JSON.stringify({ 
+        status: "user_exists", 
+        username: storedUsername, 
+        seen_ids: existingSeen,
+        isNew: false 
+      })).setMimeType(ContentService.MimeType.JSON);
+    }
+
+    // If user does not exist, create new row
+    userSheet.appendRow([
+      inputUsername,
+      new Date().toISOString(),
+      "[]" // Column C: Initial empty JSON array for seen_ids
+    ]);
+
+    return ContentService.createTextOutput(JSON.stringify({ 
+      status: "user_created", 
+      username: inputUsername, 
+      seen_ids: [],
+      isNew: true 
+    })).setMimeType(ContentService.MimeType.JSON);
+  }
+
+  // 2. Write test attempt to 'TestResults' tab & update seen question IDs in 'Users' tab (Column C)
+  if (data.action === "saveResult") {
+    var logSheet = ss.getSheetByName("TestResults");
+    
+    // Append full attempt payload including Column G (TestDetailsJSON)
+    logSheet.appendRow([
+      new Date().toISOString(),
+      data.username,
+      data.category,
+      data.score,
+      data.total,
+      data.timeSpentSec,
+      JSON.stringify(data.details || []) // Column G: Full question session array
+    ]);
+
+    // Update seen question IDs in Users sheet (Column C)
+    var answeredIds = data.answeredIds || data.answered_ids || [];
+    if (answeredIds.length > 0) {
+      var userSheet = ss.getSheetByName("Users");
+      var cell = userSheet.getRange("A:A")
+        .createTextFinder(String(data.username || "").trim())
+        .matchEntireCell(true)
+        .equalsIgnoreCase(true)
+        .findNext();
+
+      if (cell) {
+        var row = cell.getRow();
+        var rawSeen = userSheet.getRange(row, 3).getValue();
+        var existingSeen = rawSeen ? JSON.parse(rawSeen) : [];
+        var updatedSeen = Array.from(new Set(existingSeen.concat(answeredIds)));
+        userSheet.getRange(row, 3).setValue(JSON.stringify(updatedSeen));
+      }
+    }
+
+    return ContentService.createTextOutput(JSON.stringify({ status: "result_saved" }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+function doGet(e) {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var action = e.parameter ? e.parameter.action : null;
+
+  // 1. Fetch single user profile with seen_ids
+  if (action === "getUser") {
+    var username = e.parameter.username;
+    var userSheet = ss.getSheetByName("Users");
+    var usersData = userSheet.getDataRange().getValues();
+    usersData.shift(); // Remove header row
+    for (var i = 0; i < usersData.length; i++) {
+      if (String(usersData[i][0]).toLowerCase() === String(username).toLowerCase()) {
+        var rawSeen = usersData[i][2];
+        return ContentService.createTextOutput(JSON.stringify({
+          username: usersData[i][0],
+          seen_ids: rawSeen ? JSON.parse(rawSeen) : []
+        })).setMimeType(ContentService.MimeType.JSON);
+      }
+    }
+    return ContentService.createTextOutput(JSON.stringify({ error: "not_found" }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}

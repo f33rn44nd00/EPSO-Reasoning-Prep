@@ -1,6 +1,7 @@
 let questions = [];
 let currentIndex = 0;
 let focusStartTimestamp = null;
+let focusedIndex = null;
 let timerInterval = null;
 let totalTimeRemainingSec = 25 * 60; // 25 min default budget
 let timerVisible = false;
@@ -21,6 +22,8 @@ export function startTestSession(sessionQuestions, domElements, category = "verb
   questions = sessionQuestions;
   currentIndex = 0;
   elements = domElements;
+  focusedIndex = null;
+  focusStartTimestamp = null;
 
   const secPerQuestion = CATEGORY_TIMERS[category] || 105;
   totalTimeRemainingSec = questions.length * secPerQuestion;
@@ -65,6 +68,7 @@ function renderQuestion(index) {
   const q = questions[index];
   q.view_count++;
   focusStartTimestamp = Date.now();
+  focusedIndex = index; 
 
   elements.questionCounter.textContent = `Question ${index + 1} of ${questions.length}`;
   elements.flagBtn.textContent = q.was_flagged ? "🚩 Flagged" : "🏳️ Flag for Review";
@@ -152,9 +156,9 @@ function renderOptions(q) {
 
 // Navigation & Time Tracking
 function recordElapsedFocusTime() {
-  if (focusStartTimestamp && questions[currentIndex]) {
+  if (focusStartTimestamp && focusedIndex !== null && questions[focusedIndex]) {
     const elapsed = Math.round((Date.now() - focusStartTimestamp) / 1000);
-    questions[currentIndex].time_spent_sec += elapsed;
+    questions[focusedIndex].time_spent_sec += elapsed;
   }
   focusStartTimestamp = Date.now();
 }
@@ -173,12 +177,6 @@ function setupEventListeners() {
       renderQuestion(currentIndex);
     }
   };
-
-  if (elements.finishBtn) {
-    elements.finishBtn.onclick = () => {
-      finishTestSession();
-    };
-  }
 
   elements.flagBtn.onclick = () => {
     const q = questions[currentIndex];
