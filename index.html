@@ -100,6 +100,13 @@
       <button id="retake-btn">Return to Setup</button>
     </div>
 
+  <div id="save-status" style="margin: 10px 0; padding: 10px; border-radius: 4px; background: #f5f5f5;">
+      <span id="save-status-text"></span>
+      <button id="save-retry-btn" hidden>Retry save</button>
+      <button id="save-copy-btn" hidden>Copy result data</button>
+      <textarea id="save-manual-text" hidden readonly rows="4" style="width: 100%; margin-top: 8px;"></textarea>
+  </div>
+
     <div class="report-grid">
       <!-- Left Column: Detailed Question Stream -->
       <div class="left-stream">
@@ -142,10 +149,7 @@
     import { handleUserLogin } from './user.js';
     import { initTestSession } from './questions.js';
     import { startTestSession, finishTestSession } from './engine.js';
-    import { generateReport, sendResultToGAS } from './analytics.js';
-
-    // REPLACE WITH YOUR PUBLISHED GAS WEB APP URL
-    const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwzUfRD6R0ma0N5-YPnNBS70BGiW_hVzj6jwOzPLeD7H_YGAG59RX7U1xcn_YYkfueG/exec";
+    import { generateReport, buildSavePayload, generateAttemptId, sendResultToGAS } from './analytics.js';
 
     // Core Views
     const loginSection = document.getElementById('login-section');
@@ -245,25 +249,69 @@
         currentUserSeenIds = Array.from(new Set([...currentUserSeenIds, ...sessionData.answeredIds]));
       }
 
-      // Background submission to Google Apps Script
-      if (GAS_WEB_APP_URL) {
-        try {
-          await sendResultToGAS(
-            GAS_WEB_APP_URL, 
-            currentUsername, 
-            categorySelect.value, 
-            report, 
-            sessionData.answeredIds
-          );
-        } catch (err) {
-          console.warn("Cloud save issue (report is locally intact):", err);
-        }
-      }
+      // Build the payload once; it is reused for retries and manual copy
+      pendingPayload = buildSavePayload(
+        currentUsername,
+        categorySelect.value,
+        report,
+        sessionData.answeredIds,
+        generateAttemptId()
+      );
+      attemptSave();
     });
 
     retakeBtn.addEventListener('click', () => {
       reportSection.hidden = true;
       welcomeSection.hidden = false;
+    });
+
+    // ---- Cloud save status / retry / manual fallback
+    let pendingPayload = null; // set at Finish, cleared once the server confirms the save
+    const saveStatusText = document.getElementById('save-status-text');
+    const saveRetryBtn = document.getElementById('save-retry-btn');
+    const saveCopyBtn = document.getElementById('save-copy-btn');
+    const saveManualText = document.getElementById('save-manual-text');
+
+    function setSaveStatus(state, err) {
+      const failed = state === 'failed';
+      saveRetryBtn.hidden = !failed;
+      saveCopyBtn.hidden = !failed;
+      saveManualText.hidden = !failed;
+
+      if (state === 'saving') {
+        saveStatusText.textContent = '⏳ Saving result to Google Sheets...';
+      } else if (state === 'saved') {
+        saveStatusText.textContent = '✅ Result saved.';
+      } else {
+        saveStatusText.textContent =
+          `⚠️ Result NOT saved [${err.code || 'unknown'}]: ${err.message}. ` +
+          'Your report is intact. Retry, or copy the data below and keep it.';
+        saveManualText.value = JSON.stringify(pendingPayload);
+      }
+    }
+
+    async function attemptSave() {
+      if (!pendingPayload) return;
+      setSaveStatus('saving');
+      try {
+        await sendResultToGAS(pendingPayload);
+        pendingPayload = null;
+        setSaveStatus('saved');
+      } catch (err) {
+        console.warn('Cloud save failed:', err, err.detail || '');
+        setSaveStatus('failed', err);
+      }
+    }
+
+    saveRetryBtn.addEventListener('click', attemptSave);
+    saveCopyBtn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(saveManualText.value);
+        saveCopyBtn.textContent = 'Copied!';
+        setTimeout(() => { saveCopyBtn.textContent = 'Copy result data'; }, 1500);
+      } catch (e) {
+        saveManualText.select(); // clipboard blocked: let the user copy by hand
+      }
     });
 
     // Report Renderer

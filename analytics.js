@@ -1,3 +1,5 @@
+import { apiPost, ApiError } from './api.js';
+
 /**
  * Processes raw test session data into performance metrics and diagnostic tags.
  * @param {Object} sessionData - Object returned from finishTestSession()
@@ -86,11 +88,23 @@ function sortTagCounts(tagMap) {
 }
 
 /**
- * Sends session results and detail records to Google Apps Script backend
+ * Unique ID for one test attempt. Lets the backend ignore duplicate saves,
+ * so retrying a save can never create a second row.
  */
-export async function sendResultToGAS(gasUrl, username, category, reportData, answeredIds) {
-  const payload = {
+export function generateAttemptId() {
+  if (typeof crypto !== "undefined" && crypto.randomUUID) return crypto.randomUUID();
+  return Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 10);
+}
+
+/**
+ * Builds the exact object that is sent to the backend (and shown to the user
+ * for manual saving if the upload fails). Per-question data is slimmed down to
+ * the user-generated fields only.
+ */
+export function buildSavePayload(username, category, reportData, answeredIds, attemptId) {
+  return {
     action: "saveResult",
+    attemptId: attemptId,
     username: username,
     category: category,
     score: reportData.score,
@@ -106,17 +120,19 @@ export async function sendResultToGAS(gasUrl, username, category, reportData, an
       view_count: q.view_count
     }))
   };
+}
 
-  try {
-    const response = await fetch(gasUrl, {
-      method: "POST",
-      headers: { "Content-Type": "text/plain;charset=utf-8" },
-      body: JSON.stringify(payload)
-    });
-    
-    return await response.json();
-  } catch (err) {
-    console.error("GAS Cloud Sync Error:", err);
-    throw err;
+/**
+ * Sends a payload from buildSavePayload() to the backend.
+ * Retries transient failures twice (safe because of the attemptId), then
+ * confirms the server echoed this attempt back. Throws ApiError on any failure.
+ */
+export async function sendResultToGAS(payload) {
+  const res = await apiPost(payload, { retries: 2 });
+
+  const statusOk = res.status === "result_saved" || res.status === "already_saved";
+  if (!statusOk || res.attemptId !== payload.attemptId) {
+    throw new ApiError("bad_response", "Save was not confirmed by the server", JSON.stringify(res).slice(0, 200));
   }
+  return res;
 }
