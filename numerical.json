@@ -2,7 +2,7 @@
   {
     "id": "n_001",
     "set_id": "set_001",
-    "set_image": "ns_001.png",
+    "set_image": "n_001.png",
     "tags": [],
     "prompt": "Q1. What was the increase in total intra-EU traffic Q between 2015 and 2016 (rounded to the nearest million)?",
     "options": [
@@ -18,7 +18,7 @@
   {
     "id": "n_002",
     "set_id": "set_001",
-    "set_image": "ns_001.png",
+    "set_image": "n_001.png",
     "tags": [],
     "prompt": "Q2. What was the percentage increase in traffic for the three top destinations from the United Kingdom between 2015 and 2016 (rounded to one decimal place)?",
     "options": [
@@ -34,7 +34,7 @@
   {
     "id": "n_003",
     "set_id": "set_001",
-    "set_image": "ns_001.png",
+    "set_image": "n_001.png",
     "tags": [],
     "prompt": "Q3. In 2015 the average cost of a Spain-Germany flight was €147.60, and it increased by 2.1% in 2016. What was the increase in the total amount spent by Spain-Germany passengers between 2015 and 2016 (rounded to the nearest thousand euros)?",
     "options": [
@@ -50,7 +50,7 @@
   {
     "id": "n_004",
     "set_id": "set_002",
-    "set_image": "ns_002.png",
+    "set_image": "n_002.png",
     "tags": [],
     "prompt": "Q1. What was the difference between the numbers of outbound trips made by EU residents in 2016 to the U.S. and to Switzerland (to the nearest million)?",
     "options": [
@@ -66,7 +66,7 @@
   {
     "id": "n_005",
     "set_id": "set_002",
-    "set_image": "ns_002.png",
+    "set_image": "n_002.png",
     "tags": [],
     "prompt": "Q2. The number of outbound trips made by EU residents to Turkey decreased by 0.6% between 2016 and 2017, and the total number of outbound trips increased by 1.8% during the same period. What was the share of outbound trips made by EU residents to Turkey in 2017 (rounded to one decimal place)?",
     "options": [
@@ -82,7 +82,7 @@
   {
     "id": "n_006",
     "set_id": "set_002",
-    "set_image": "ns_002.png",
+    "set_image": "n_002.png",
     "tags": [],
     "prompt": "Q3. The share in the expenditure of outbound trips made by EU residents to Norway in 2016 was 1.4 times larger than the share of Norway in the number of outbound trips, and the share in the expenditure of outbound trips made by EU residents to Russia in 2016 was by 25% less than the share of Russia in the number of outbound trips. What was the ratio between the expenditures of outbound trips made by EU residents to Norway and to Russia in 2016?",
     "options": [
@@ -98,7 +98,7 @@
   {
     "id": "n_007",
     "set_id": "set_003",
-    "set_image": "ns_003.png",
+    "set_image": "n_003.png",
     "tags": [],
     "prompt": "Q1. The average health care expenditure of the top-5 EU members increased by 4.5% between 2015 and 2017. What was the average expenditure of the top-5 EU members in 2017 (rounded to the nearest billion euros)?",
     "options": [
@@ -114,7 +114,7 @@
   {
     "id": "n_008",
     "set_id": "set_003",
-    "set_image": "ns_003.png",
+    "set_image": "n_003.png",
     "tags": [],
     "prompt": "Q2. What was the difference between the GDP of the United Kingdom and France in 2015 (rounded to the nearest billion euros)?",
     "options": [
@@ -130,7 +130,7 @@
   {
     "id": "n_009",
     "set_id": "set_003",
-    "set_image": "ns_003.png",
+    "set_image": "n_003.png",
     "tags": [],
     "prompt": "Q3. The population of Spain increased by 3.1% in 2016, and by 3.4% in 2017. What was the population of Spain by the end of 2017 (rounded to the nearest million)?",
     "options": [
@@ -146,7 +146,7 @@
   {
     "id": "n_010",
     "set_id": "set_004",
-    "set_image": "ns_004.png",
+    "set_image": "n_004.png",
     "tags": [],
     "prompt": "Q1. If the generation of waste in the agriculture, forestry and fishing sector in Chile had been 500,000 tonnes less in both 2005 and 2007, what percentage would this decrease have represented in the total waste generated in this sector in Chile in the period from 2004 to 2007?",
     "options": [
@@ -162,7 +162,7 @@
   {
     "id": "n_011",
     "set_id": "set_004",
-    "set_image": "ns_004.png",
+    "set_image": "n_004.png",
     "tags": [],
     "prompt": "Q2. In which country did the generation of waste in this sector decrease at the greatest rate between 2006 and 2008, Austria, Belgium or Italy?",
     "options": [
@@ -178,7 +178,7 @@
   {
     "id": "n_012",
     "set_id": "set_004",
-    "set_image": "ns_004.png",
+    "set_image": "n_004.png",
     "tags": [],
     "prompt": "Q3. In which year did Japan’s waste generation in this sector deviate the most from the average amount of waste it generated in the 2004−2010 period?",
     "options": [
@@ -194,7 +194,7 @@
   {
     "id": "n_013",
     "set_id": "set_005",
-    "set_image": "ns_005.png",
+    "set_image": "n_005.png",
     "tags": [],
     "prompt": "Q1. What was the average percentage change between 2011 and 2016 of people aged 25–64 reporting they knew three or more foreign languages across the four countries shown (rounded to three decimal places)?",
     "options": [
@@ -210,7 +210,7 @@
   {
     "id": "n_014",
     "set_id": "set_005",
-    "set_image": "ns_005.png",
+    "set_image": "n_005.png",
     "tags": [],
     "prompt": "Q2. What was the ratio of the share of Slovenian people aged 25-64 and having tertiary education reporting that they knew one or more foreign languages, to the share of all Slovenian people of this age reporting that they knew one or more foreign languages in 2016?",
     "options": [
@@ -226,7 +226,7 @@
   {
     "id": "n_015",
     "set_id": "set_005",
-    "set_image": "ns_005.png",
+    "set_image": "n_005.png",
     "tags": [],
     "prompt": "Q3. The population of Poland aged 25-64 changed from 31.2 million to 30.7 million between 2011 and 2016. What was the difference between the number of Polish people aged 25–64 reporting they knew just one foreign language in 2016 and in 2011 (rounded to one thousand)?",
     "options": [
@@ -242,7 +242,7 @@
   {
     "id": "n_016",
     "set_id": "set_006",
-    "set_image": "ns_006.png",
+    "set_image": "n_006.png",
     "tags": [],
     "prompt": "Q1. Canard passed the halfway marker at 1:07:50. What was his average speed for the second half of the race?",
     "options": [
@@ -258,7 +258,7 @@
   {
     "id": "n_017",
     "set_id": "set_006",
-    "set_image": "ns_006.png",
+    "set_image": "n_006.png",
     "tags": [],
     "prompt": "Q2. Dennis and Ekimov passed the “1km to go” marker at exactly the same time, 2:11:00. How much faster than Ekimov did Dennis run in the last kilometre?",
     "options": [
@@ -274,7 +274,7 @@
   {
     "id": "n_018",
     "set_id": "set_006",
-    "set_image": "ns_006.png",
+    "set_image": "n_006.png",
     "tags": [],
     "prompt": "Q3. Benoit ran the last 150m at a speed 5% faster than his overall average for the race. How far was Benoit from the finishing line when Anderson finished?",
     "options": [
@@ -290,7 +290,7 @@
   {
     "id": "n_019",
     "set_id": "set_007",
-    "set_image": "ns_007.png",
+    "set_image": "n_007.png",
     "tags": [],
     "prompt": "Q1. If 60 male students in a high school use any kind of tobacco product, how many female students does the school have?",
     "options": [
@@ -306,7 +306,7 @@
   {
     "id": "n_020",
     "set_id": "set_007",
-    "set_image": "ns_007.png",
+    "set_image": "n_007.png",
     "tags": [],
     "prompt": "Q2. In a high school with 300 male students, of whom 20 use both electronic and regular cigarettes, how many male students use only one of them?",
     "options": [
@@ -322,7 +322,7 @@
   {
     "id": "n_021",
     "set_id": "set_007",
-    "set_image": "ns_007.png",
+    "set_image": "n_007.png",
     "tags": [],
     "prompt": "Q3. If there are 100 students using any kind of tobacco product in a school where the number of male students is twice the number of female students, how many of the school’s female students are using electronic cigarettes?",
     "options": [
@@ -338,7 +338,7 @@
   {
     "id": "n_022",
     "set_id": "set_008",
-    "set_image": "ns_008.png",
+    "set_image": "n_008.png",
     "tags": [],
     "prompt": "Q1. The carcass weight to retail weight conversion rate for beef and veal is 0.7. Assuming that Argentina had a population of 44.27 million people in 2017, what was the weight of bovine carcasses necessary to meet the beef and veal consumption?",
     "options": [
@@ -354,7 +354,7 @@
   {
     "id": "n_023",
     "set_id": "set_008",
-    "set_image": "ns_008.png",
+    "set_image": "n_008.png",
     "tags": [],
     "prompt": "Q2. Assuming that Brazil has a population of 209.3 million people, what would be the overall rate of decrease of meat consumption in that country if both beef and veal, and poultry consumption decreased by 20%?",
     "options": [
@@ -370,7 +370,7 @@
   {
     "id": "n_024",
     "set_id": "set_008",
-    "set_image": "ns_008.png",
+    "set_image": "n_008.png",
     "tags": [],
     "prompt": "Q3. Australia’s population is 24.6 million. Assuming that the weight of carcasses required to meet the country’s pork e consumption is 652.85 million kg, what is the carcass weight to retail weight ratio for pork?",
     "options": [
@@ -386,7 +386,7 @@
   {
     "id": "n_025",
     "set_id": "set_009",
-    "set_image": "ns_009.png",
+    "set_image": "n_009.png",
     "tags": [],
     "prompt": "Q1. You buy 2000 shares on Tuesday at 1.4% below the previous day’s closing price. There is a €15.95 dealing charge. How much does it cost you?",
     "options": [
@@ -402,7 +402,7 @@
   {
     "id": "n_026",
     "set_id": "set_009",
-    "set_image": "ns_009.png",
+    "set_image": "n_009.png",
     "tags": [],
     "prompt": "Q2. You sell 2000 shares on Friday which incurs a €15.95 dealing charge. Your total proceeds amount to €4664.05. By what percentage had the price risen since yesterday’s close?",
     "options": [
@@ -418,7 +418,7 @@
   {
     "id": "n_027",
     "set_id": "set_009",
-    "set_image": "ns_009.png",
+    "set_image": "n_009.png",
     "tags": [],
     "prompt": "Q3. The difference between the buying price and the selling price on a given day is known as ‘the spread’. If the percentage spread is calculated as a percentage of the higher value, which day has the largest percentage spread? Q",
     "options": [
@@ -434,7 +434,7 @@
   {
     "id": "n_028",
     "set_id": "set_010",
-    "set_image": "ns_010.png",
+    "set_image": "n_010.png",
     "tags": [],
     "prompt": "Q1. Which of the accounting software shown in the table is projected to cost the least to acquire and operate over a two-year period?",
     "options": [
@@ -450,7 +450,7 @@
   {
     "id": "n_029",
     "set_id": "set_010",
-    "set_image": "ns_010.png",
+    "set_image": "n_010.png",
     "tags": [],
     "prompt": "Q2. If the company manages to negotiate a 15% discount on the licence fees and the installation is done free of charge, how much would it cost to introduce and operate the BSheet 12 software for 5 years?",
     "options": [
@@ -466,7 +466,7 @@
   {
     "id": "n_030",
     "set_id": "set_010",
-    "set_image": "ns_010.png",
+    "set_image": "n_010.png",
     "tags": [],
     "prompt": "Q3. How much money will the company save or lose over 3 years if it introduces BookKeeper Standard instead of Accounts Pro 10?",
     "options": [
@@ -482,7 +482,7 @@
   {
     "id": "n_031",
     "set_id": "set_011",
-    "set_image": "ns_011.png",
+    "set_image": "n_011.png",
     "tags": [],
     "prompt": "Q1. If the table were ordered by percentage increase in production between 2010 and 2015, which crop would be in the middle of the table?",
     "options": [
@@ -498,7 +498,7 @@
   {
     "id": "n_032",
     "set_id": "set_011",
-    "set_image": "ns_011.png",
+    "set_image": "n_011.png",
     "tags": [],
     "prompt": "Q2. How many more tonnes of sugar would France have needed to produce in 2010 for its percentage increase from 2005 (to the nearest whole percentage point) to be the same as the corresponding increase for wheat?",
     "options": [
@@ -514,7 +514,7 @@
   {
     "id": "n_033",
     "set_id": "set_011",
-    "set_image": "ns_011.png",
+    "set_image": "n_011.png",
     "tags": [],
     "prompt": "Q3. The yield (tonnes produced per hectare) of rapeseed is 3.1 tonnes per hectare in 2005. This improves by 6% by 2015. What is the percentage increase in land usage for rapeseed production between 2005 and 2015?",
     "options": [
@@ -530,7 +530,7 @@
   {
     "id": "n_034",
     "set_id": "set_012",
-    "set_image": "ns_012.png",
+    "set_image": "n_012.png",
     "tags": [],
     "prompt": "Q1. What was the total EU-28 aquaculture production in 2015 (in million tonnes, rounded to one decimal place)?",
     "options": [
@@ -546,7 +546,7 @@
   {
     "id": "n_035",
     "set_id": "set_012",
-    "set_image": "ns_012.png",
+    "set_image": "n_012.png",
     "tags": [],
     "prompt": "Q2. The French fish catch was 271 thousand tonnes greater than its aquaculture production in 2015. What was the share of French aquaculture production in the total EU-28 production of fishery products (rounded to the nearest whole percent)?",
     "options": [
@@ -562,7 +562,7 @@
   {
     "id": "n_036",
     "set_id": "set_012",
-    "set_image": "ns_012.png",
+    "set_image": "n_012.png",
     "tags": [],
     "prompt": "Q3. By what percentage was the increase in the Q total production of fishery products in the United Kingdom from 2008 to 2015 greater than that in Spain in the same period (rounded to one decimal place)?",
     "options": [
@@ -578,7 +578,7 @@
   {
     "id": "n_037",
     "set_id": "set_013",
-    "set_image": "ns_013.png",
+    "set_image": "n_013.png",
     "tags": [],
     "prompt": "Q1. The total power generated in the UK increased by 7.25% between 2000 and 2005. What was the percentage increase in nuclear power generation over the same period?",
     "options": [
@@ -594,7 +594,7 @@
   {
     "id": "n_038",
     "set_id": "set_013",
-    "set_image": "ns_013.png",
+    "set_image": "n_013.png",
     "tags": [],
     "prompt": "Q2. Which form of power generation shows the greatest percentage increase in the percentage of total power generated between 2010 and 2015?",
     "options": [
@@ -611,7 +611,7 @@
   {
     "id": "n_039",
     "set_id": "set_013",
-    "set_image": "ns_013.png",
+    "set_image": "n_013.png",
     "tags": [],
     "prompt": "Q3. In 2005, 20% of the ‘Other’ power was generated by biomass. By 2010 this amount had increased by 50%. If the total power generated in the UK had increased by 10% over the same period, what percentage of ‘Other’ power was generated by biomass in 2010?",
     "options": [
@@ -627,7 +627,7 @@
   {
     "id": "n_040",
     "set_id": "set_014",
-    "set_image": "ns_014.png",
+    "set_image": "n_014.png",
     "tags": [],
     "prompt": "Q1. If the economic damage caused by storms had doubled, what percentage of the total economic damage would have been caused by storms?",
     "options": [
@@ -643,7 +643,7 @@
   {
     "id": "n_041",
     "set_id": "set_014",
-    "set_image": "ns_014.png",
+    "set_image": "n_014.png",
     "tags": [],
     "prompt": "Q2. If the total cost of economic damage had stayed the same, but Asia had suffered 45% of it, what would have been the absolute loss of Asia?",
     "options": [
@@ -659,7 +659,7 @@
   {
     "id": "n_042",
     "set_id": "set_014",
-    "set_image": "ns_014.png",
+    "set_image": "n_014.png",
     "tags": [],
     "prompt": "Q3. What was the cost of economic damage caused by storms in the Americas?",
     "options": [
@@ -675,7 +675,7 @@
   {
     "id": "n_043",
     "set_id": "set_015",
-    "set_image": "ns_015.png",
+    "set_image": "n_015.png",
     "tags": [],
     "prompt": "Q1. Davies ran the last 10m at a speed 8% faster than his overall average speed. By what distance, to the nearest centimetre, did he miss out on the bronze medal (3rd place)?",
     "options": [
@@ -691,7 +691,7 @@
   {
     "id": "n_044",
     "set_id": "set_015",
-    "set_image": "ns_015.png",
+    "set_image": "n_015.png",
     "tags": [],
     "prompt": "Q2. How much faster did Adams run than Best on Q average?",
     "options": [
@@ -707,7 +707,7 @@
   {
     "id": "n_045",
     "set_id": "set_015",
-    "set_image": "ns_015.png",
+    "set_image": "n_015.png",
     "tags": [],
     "prompt": "Q3. Carter ran the final 1.3% faster than he ran in the semi-final which was 1.8% faster than his performance in the heat (the race before the semi-final). He won his heat by 3 hundredths of a second. What was the finishing time of the runner who came second in Carter’s heat?",
     "options": [
@@ -723,7 +723,7 @@
   {
     "id": "n_046",
     "set_id": "set_016",
-    "set_image": "ns_016.png",
+    "set_image": "n_016.png",
     "tags": [],
     "prompt": "Q1. What was the ratio of the percentage change of the total EU sold production of chemicals between 2016 and 2017 to the percentage change between 2014 and 2015?",
     "options": [
@@ -739,7 +739,7 @@
   {
     "id": "n_047",
     "set_id": "set_016",
-    "set_image": "ns_016.png",
+    "set_image": "n_016.png",
     "tags": [],
     "prompt": "Q2. The amount sold of medical and pharmaceutical products increased by 5.2% between 2016 and 2017. What was the share of medical and pharmaceutical products in total sold production of chemicals in 2016 (rounded to one decimal place)?",
     "options": [
@@ -755,7 +755,7 @@
   {
     "id": "n_048",
     "set_id": "set_016",
-    "set_image": "ns_016.png",
+    "set_image": "n_016.png",
     "tags": [],
     "prompt": "Q3. What was the difference between the organic and inorganic shares in intra-EU-28 exports of chemicals in 2017 (rounded to one decimal place)?",
     "options": [
@@ -771,7 +771,7 @@
   {
     "id": "n_049",
     "set_id": "set_017",
-    "set_image": "ns_017.png",
+    "set_image": "n_017.png",
     "tags": [],
     "prompt": "Q1. If the average cost of a 75cl bottle of red wine in the Netherlands was €6.63 in 2015, what was the per capita spending on red wine in 2015? f",
     "options": [
@@ -787,7 +787,7 @@
   {
     "id": "n_050",
     "set_id": "set_017",
-    "set_image": "ns_017.png",
+    "set_image": "n_017.png",
     "tags": [],
     "prompt": "Q2. If the change in consumption of white wine between 2010 and 2015 had been the same as the change for rosé wine over the same period, what would the consumption figure for white wine have been in 2015?",
     "options": [
@@ -803,7 +803,7 @@
   {
     "id": "n_051",
     "set_id": "set_017",
-    "set_image": "ns_017.png",
+    "set_image": "n_017.png",
     "tags": [],
     "prompt": "Q3. What was the percentage change in per capita consumption of red wine between 2005 and 2010?",
     "options": [
@@ -819,7 +819,7 @@
   {
     "id": "n_052",
     "set_id": "set_018",
-    "set_image": "ns_018.png",
+    "set_image": "n_018.png",
     "tags": [],
     "prompt": "Q1. What was the ratio of the share of Italian young people aged 20-24 years participating in education and learning two or more foreign languages in 2015 to the share for the EU-28? Choose the closest option.",
     "options": [
@@ -835,7 +835,7 @@
   {
     "id": "n_053",
     "set_id": "set_018",
-    "set_image": "ns_018.png",
+    "set_image": "n_018.png",
     "tags": [],
     "prompt": "Q2. The number of French young people aged 20-24 years participating in education was 1.365 million in 2010, and it increased by 3.6% between 2010 and 2015. Find the Q increase between 2010 and 2015 of French young people aged 20-24 years who were participating in education and learning two or more foreign languages (in thousands).",
     "options": [
@@ -851,7 +851,7 @@
   {
     "id": "n_054",
     "set_id": "set_018",
-    "set_image": "ns_018.png",
+    "set_image": "n_018.png",
     "tags": [],
     "prompt": "Q3. The German population aged 15-29 years in 2015 was 23% greater than that of Italy. By what percentage was the number of German young people aged 15-29 years participating in education in 2015 larger than that in Italy (rounded to one decimal place)?",
     "options": [
@@ -867,7 +867,7 @@
   {
     "id": "n_055",
     "set_id": "set_019",
-    "set_image": "ns_019.png",
+    "set_image": "n_019.png",
     "tags": [],
     "prompt": "Q1. What percentage of biomass energy did bio fuels account for in 2017 in the US?",
     "options": [
@@ -883,7 +883,7 @@
   {
     "id": "n_056",
     "set_id": "set_019",
-    "set_image": "ns_019.png",
+    "set_image": "n_019.png",
     "tags": [],
     "prompt": "Q2. If all the percentage values had stayed the same and the amount of hydroelectric energy produced had been 2 quadrillion Btu, what would have been the total amount of energy produced in 2017 in the US?",
     "options": [
@@ -899,7 +899,7 @@
   {
     "id": "n_057",
     "set_id": "set_019",
-    "set_image": "ns_019.png",
+    "set_image": "n_019.png",
     "tags": [],
     "prompt": "Q3. If the amount of petroleum based energy had decreased by 10%, and energy from the other sources had increased by equal amounts so that the total amount of energy produced stayed the same, what would have been the amount of energy produced from coal?",
     "options": [
@@ -915,7 +915,7 @@
   {
     "id": "n_058",
     "set_id": "set_020",
-    "set_image": "ns_020.png",
+    "set_image": "n_020.png",
     "tags": [],
     "prompt": "Q1. What percentage of Teen & young adult books belong to more than one subcategory?",
     "options": [
@@ -931,7 +931,7 @@
   {
     "id": "n_059",
     "set_id": "set_020",
-    "set_image": "ns_020.png",
+    "set_image": "n_020.png",
     "tags": [],
     "prompt": "Q2. What percentage of Teen & young adult books belong to the general reference subcategory?",
     "options": [
@@ -947,7 +947,7 @@
   {
     "id": "n_060",
     "set_id": "set_020",
-    "set_image": "ns_020.png",
+    "set_image": "n_020.png",
     "tags": [],
     "prompt": "Q3. What percentage of the reference subcategory would dictionaries represent if we added another 1000 atlases?",
     "options": [
@@ -963,7 +963,7 @@
   {
     "id": "n_061",
     "set_id": "set_021",
-    "set_image": "ns_021.png",
+    "set_image": "n_021.png",
     "tags": [],
     "prompt": "Q1. You travel from Brussels to Strasbourg, departing and arriving on time. The cruising speed of your train is 15% faster than its overall average speed. What is its cruising speed to the nearest kilometre per hour?",
     "options": [
@@ -979,7 +979,7 @@
   {
     "id": "n_062",
     "set_id": "set_021",
-    "set_image": "ns_021.png",
+    "set_image": "n_021.png",
     "tags": [],
     "prompt": "Q2. You are travelling from Brussels to Luxembourg but due to adverse conditions the train travels 10% slower than normal. How late do you arrive in Luxembourg?",
     "options": [
@@ -995,7 +995,7 @@
   {
     "id": "n_063",
     "set_id": "set_021",
-    "set_image": "ns_021.png",
+    "set_image": "n_021.png",
     "tags": [],
     "prompt": "Q3. Trains leave Brussels for Berlin every 2 hours starting at 0600 and similarly from Berlin starting at 0500. If you depart Brussels at 0800, how many Brussels-bound trains do you pass on your journey to Berlin?",
     "options": [
@@ -1011,7 +1011,7 @@
   {
     "id": "n_064",
     "set_id": "set_022",
-    "set_image": "ns_022.png",
+    "set_image": "n_022.png",
     "tags": [],
     "prompt": "Q1. In 2015 the number of unemployed in Ireland was 10000 more than in 2010 and the percentage of the workforce unemployed was 0.1 percentage points less in 2010 than 2015. What was the percentage change in population in Ireland between 2010 and 2015?",
     "options": [
@@ -1027,7 +1027,7 @@
   {
     "id": "n_065",
     "set_id": "set_022",
-    "set_image": "ns_022.png",
+    "set_image": "n_022.png",
     "tags": [],
     "prompt": "Q2. What percentage of the number of unemployed people in Portugal is the number of unemployed in Hungary in 2015?",
     "options": [
@@ -1043,7 +1043,7 @@
   {
     "id": "n_066",
     "set_id": "set_022",
-    "set_image": "ns_022.png",
+    "set_image": "n_022.png",
     "tags": [],
     "prompt": "Q3. The percentage of the workforce unemployed in Croatia rose by 5% between 2010 and 2015 and the population rose by 3.3% over the same period. What was the rise in the number of unemployed in Croatia between 2010 and 2015?",
     "options": [
@@ -1059,7 +1059,7 @@
   {
     "id": "n_067",
     "set_id": "set_023",
-    "set_image": "ns_023.png",
+    "set_image": "n_023.png",
     "tags": [],
     "prompt": "Q1. Assuming that 66% of the population is of working age, in what year in the 2007-2011 period was the number of unemployed people of working age at its peak?",
     "options": [
@@ -1075,7 +1075,7 @@
   {
     "id": "n_068",
     "set_id": "set_023",
-    "set_image": "ns_023.png",
+    "set_image": "n_023.png",
     "tags": [],
     "prompt": "Q2. Assuming that 66% of the population is of working age from 15 to 74, and that every age group is equally represented in the unemployed working age population, how many of those unemployed people who are of working age in 2017 will be older than 74 years in 2020?",
     "options": [
@@ -1091,7 +1091,7 @@
   {
     "id": "n_069",
     "set_id": "set_023",
-    "set_image": "ns_023.png",
+    "set_image": "n_023.png",
     "tags": [],
     "prompt": "Q3. At what rate did the number of people (of any age) who were not working change from 2007 to 2017, assuming that 66% of the population is of working age, and that nobody outside the 15-74 age group has a job?",
     "options": [
@@ -1107,7 +1107,7 @@
   {
     "id": "n_070",
     "set_id": "set_024",
-    "set_image": "ns_024.png",
+    "set_image": "n_024.png",
     "tags": [],
     "prompt": "Q1. What was the total water usage of the domestic sector in Latvia in 2015 as a percentage of that of Lithuania (rounded to one decimal place)?",
     "options": [
@@ -1123,7 +1123,7 @@
   {
     "id": "n_071",
     "set_id": "set_024",
-    "set_image": "ns_024.png",
+    "set_image": "n_024.png",
     "tags": [],
     "prompt": "Q2. What was the difference in the average per capita water usage of each of the fi ve countries in 2015 and 2010 (in m3, rounded to one decimal place)?",
     "options": [
@@ -1139,7 +1139,7 @@
   {
     "id": "n_072",
     "set_id": "set_024",
-    "set_image": "ns_024.png",
+    "set_image": "n_024.png",
     "tags": [],
     "prompt": "Q3. Total water usage by the domestic sector in Lithuania increased by 40.3 million m3 between 2011 and 2015. What was the population of Lithuania in 2011 (in millions, Q rounded to one decimal place)?",
     "options": [
@@ -1155,7 +1155,7 @@
   {
     "id": "n_073",
     "set_id": "set_025",
-    "set_image": "ns_025.png",
+    "set_image": "n_025.png",
     "tags": [],
     "prompt": "Q1. The population of Croatia increased by 7.5% between 2005 and 2015. How many more births were there in Croatia in 2015 than in 2005 (rounded to the nearest whole number)?",
     "options": [
@@ -1171,7 +1171,7 @@
   {
     "id": "n_074",
     "set_id": "set_025",
-    "set_image": "ns_025.png",
+    "set_image": "n_025.png",
     "tags": [],
     "prompt": "Q2. What is the average number of births across all four countries shown in 2005 (rounded to the nearest whole number)?",
     "options": [
@@ -1187,7 +1187,7 @@
   {
     "id": "n_075",
     "set_id": "set_025",
-    "set_image": "ns_025.png",
+    "set_image": "n_025.png",
     "tags": [],
     "prompt": "Q3. In Portugal there were 4 more births in 2015 than there were in 2005. What was the percentage change in population of Portugal over this time?",
     "options": [
@@ -1204,7 +1204,7 @@
   {
     "id": "n_076",
     "set_id": "set_026",
-    "set_image": "ns_026.png",
+    "set_image": "n_026.png",
     "tags": [],
     "prompt": "Q1. The company is realigning its fi shing fl eet distribution according to changing catch expectations. If, in 2013, the company had 42 fi shing boats in the South Atlantic and the company increases its total fl eet size by 15% in 2014, how many fi shing boats will it have overall in the Atlantic Ocean in 2014, rounded to the nearest whole boat?",
     "options": [
@@ -1220,7 +1220,7 @@
   {
     "id": "n_077",
     "set_id": "set_026",
-    "set_image": "ns_026.png",
+    "set_image": "n_026.png",
     "tags": [],
     "prompt": "Q2. By approximately what percentage does the number of the company’s fi shing boats in the Pacifi c Ocean change between 2013 and 2014 if the overall fl eet grows by 15% between the two years?",
     "options": [
@@ -1236,7 +1236,7 @@
   {
     "id": "n_078",
     "set_id": "set_026",
-    "set_image": "ns_026.png",
+    "set_image": "n_026.png",
     "tags": [],
     "prompt": "Q3. If the Pacifi c Ocean is 2.3 times as large as the Indian Ocean, by what percentage is the company’s number of boats per square kilometer in the Indian Ocean greater than in the Pacifi c Ocean in 2014?",
     "options": [
@@ -1252,7 +1252,7 @@
   {
     "id": "n_079",
     "set_id": "set_027",
-    "set_image": "ns_027.png",
+    "set_image": "n_027.png",
     "tags": [],
     "prompt": "Q1. If 5% of production in Quarter 1 2014 came from 50 wind farms and the same percentage of Quarter 2 2014 production was also contributed by wind farms, how many wind farms produced electricity in that quarter? You should assume that all operational wind farms produce identical amounts of electricity d as each other and in each quarter.",
     "options": [
@@ -1268,7 +1268,7 @@
   {
     "id": "n_080",
     "set_id": "set_027",
-    "set_image": "ns_027.png",
+    "set_image": "n_027.png",
     "tags": [],
     "prompt": "Q2. In 2014, Hungary exported 79% of its excess Q capacity. How many GWh of excess electricity does Hungary still need to generate in the rest of 2015 to achieve the same export volume in 2015 if in the first half of 2015 it exported 50% of its excess capacity?",
     "options": [
@@ -1284,7 +1284,7 @@
   {
     "id": "n_081",
     "set_id": "set_027",
-    "set_image": "ns_027.png",
+    "set_image": "n_027.png",
     "tags": [],
     "prompt": "Q3. The Paks nuclear power plant in Hungary produces 14.8 GWh annually and its rate of production is constant. In how many of the quarters shown was Paks’s production more than 30% of total production?",
     "options": [
@@ -1300,7 +1300,7 @@
   {
     "id": "n_082",
     "set_id": "set_028",
-    "set_image": "ns_028.png",
+    "set_image": "n_028.png",
     "tags": [],
     "prompt": "Q1. What was the difference between 2017 and 2007 in the total number of persons living in French private households (in millions, rounded to one decimal place)?",
     "options": [
@@ -1316,7 +1316,7 @@
   {
     "id": "n_083",
     "set_id": "set_028",
-    "set_image": "ns_028.png",
+    "set_image": "n_028.png",
     "tags": [],
     "prompt": "Q2. What was the percentage change between 2007 and 2017 in the number of couples with children living in private households in Italy (rounded to two decimal places)?",
     "options": [
@@ -1332,7 +1332,7 @@
   {
     "id": "n_084",
     "set_id": "set_028",
-    "set_image": "ns_028.png",
+    "set_image": "n_028.png",
     "tags": [],
     "prompt": "Q3. The total number of EU-28 private households increased by 0.65% in 2018, and the share of couples without children didn’t change. What was the EU-28 total number of persons without children in 2018 (rounded to the nearest million)?",
     "options": [
@@ -1348,7 +1348,7 @@
   {
     "id": "n_085",
     "set_id": "set_029",
-    "set_image": "ns_029.png",
+    "set_image": "n_029.png",
     "tags": [],
     "prompt": "Q1. As a planet travels around the Sun (orbital period), the distance it covers is 6.3 times its distance from the Sun. At what speed does the Earth travel around the Sun in km/sec?",
     "options": [
@@ -1364,7 +1364,7 @@
   {
     "id": "n_086",
     "set_id": "set_029",
-    "set_image": "ns_029.png",
+    "set_image": "n_029.png",
     "tags": [],
     "prompt": "Q2. How much faster than Venus is Mercury travelling? The distance travelled by a planet around the Sun is the distance of the planet from the Sun multiplied by 6.3.",
     "options": [
@@ -1380,7 +1380,7 @@
   {
     "id": "n_087",
     "set_id": "set_029",
-    "set_image": "ns_029.png",
+    "set_image": "n_029.png",
     "tags": [],
     "prompt": "Q3. A future astronaut on Mars has to wait at least 8m 40s to get a response from Earth to his messages. This minimum delay occurs when the distance of Mars from Earth is the s distance of Mars from the Sun minus Earth’s distance from the Sun. At what speed do his messages travel (in km/sec)?",
     "options": [
@@ -1396,7 +1396,7 @@
   {
     "id": "n_088",
     "set_id": "set_030",
-    "set_image": "ns_030.png",
+    "set_image": "n_030.png",
     "tags": [],
     "prompt": "Q1. Five teams work on closing fi nancial audit fi les and each team sometimes makes errors. Q Which team closes the lowest number of fi les per year without errors?",
     "options": [
@@ -1412,7 +1412,7 @@
   {
     "id": "n_089",
     "set_id": "set_030",
-    "set_image": "ns_030.png",
+    "set_image": "n_030.png",
     "tags": [],
     "prompt": "Q2. If Team C’s error rate deteriorated to 17% and Team B’s improved to 2%, how many fewer Q fi les would Team C be able to close without errors than Team B?",
     "options": [
@@ -1428,7 +1428,7 @@
   {
     "id": "n_090",
     "set_id": "set_030",
-    "set_image": "ns_030.png",
+    "set_image": "n_030.png",
     "tags": [],
     "prompt": "Q3. If teams progress through fi les at a constant rate from month to month, how many fi les will the fi ve teams close by the end of September?",
     "options": [
@@ -1444,7 +1444,7 @@
   {
     "id": "n_091",
     "set_id": "set_031",
-    "set_image": "ns_031.png",
+    "set_image": "n_031.png",
     "tags": [],
     "prompt": "Q1. A country is considering the adoption of a new tax system. Under which system does a person earning 55 000 € / year owe the least in taxes?",
     "options": [
@@ -1460,7 +1460,7 @@
   {
     "id": "n_092",
     "set_id": "set_031",
-    "set_image": "ns_031.png",
+    "set_image": "n_031.png",
     "tags": [],
     "prompt": "Q2. What is the effective tax rate of a person earning 62 000 € annually under System 3?",
     "options": [
@@ -1476,7 +1476,7 @@
   {
     "id": "n_093",
     "set_id": "set_031",
-    "set_image": "ns_031.png",
+    "set_image": "n_031.png",
     "tags": [],
     "prompt": "Q3. A person earns 75 000 € a year. By what percentage is their after-tax income greater or smaller under System1 than under System 3?",
     "options": [
@@ -1492,7 +1492,7 @@
   {
     "id": "n_094",
     "set_id": "set_032",
-    "set_image": "ns_032.png",
+    "set_image": "n_032.png",
     "tags": [],
     "prompt": "Q1. If they are ranked by the percentage that a power station generates of the total electricity consumption of the given country, which station would be in the middle?",
     "options": [
@@ -1508,7 +1508,7 @@
   {
     "id": "n_095",
     "set_id": "set_032",
-    "set_image": "ns_032.png",
+    "set_image": "n_032.png",
     "tags": [],
     "prompt": "Q2. Venezuela plans to build another power station of the same production capacity as that of Guri. If existing power stations produce 78% of the electricity consumed in Venezuela, how much electricity will Venezuela have available for export after completion of the new power station?",
     "options": [
@@ -1524,7 +1524,7 @@
   {
     "id": "n_096",
     "set_id": "set_032",
-    "set_image": "ns_032.png",
+    "set_image": "n_032.png",
     "tags": [],
     "prompt": "Q3. If the electricity produced by the Three Gorges Dam would be enough to cover 3.24% of the electricity consumed in the EU, and the EU produces 30% of the electricity it consumes from nuclear power, how much electricity in the EU is produced from nuclear power?",
     "options": [
@@ -1540,7 +1540,7 @@
   {
     "id": "n_097",
     "set_id": "set_033",
-    "set_image": "ns_033.png",
+    "set_image": "n_033.png",
     "tags": [],
     "prompt": "Q1. What percentage of all household appliances are energy-effi cient washing machines?",
     "options": [
@@ -1556,7 +1556,7 @@
   {
     "id": "n_098",
     "set_id": "set_033",
-    "set_image": "ns_033.png",
+    "set_image": "n_033.png",
     "tags": [],
     "prompt": "Q2. If the share of energy-effi cient units among refrigerators and air conditioners rose by 20%, how many energy-effi cient refrigerators and air conditioners would there be?",
     "options": [
@@ -1572,7 +1572,7 @@
   {
     "id": "n_099",
     "set_id": "set_033",
-    "set_image": "ns_033.png",
+    "set_image": "n_033.png",
     "tags": [],
     "prompt": "Q3. If D-rated household appliances are ranked by the number of such units in a highest-to- lowest list, which one would be at the top of the list?",
     "options": [
@@ -1588,7 +1588,7 @@
   {
     "id": "n_100",
     "set_id": "set_034",
-    "set_image": "ns_034.png",
+    "set_image": "n_034.png",
     "tags": [],
     "prompt": "Q1. The population of Norway increased by 577 thousand between 2007 and 2017. By how much did the number of persons aged 0-14 in Norway change between these years (rounded to the nearestthousand)?",
     "options": [
@@ -1604,7 +1604,7 @@
   {
     "id": "n_101",
     "set_id": "set_034",
-    "set_image": "ns_034.png",
+    "set_image": "n_034.png",
     "tags": [],
     "prompt": "Q2. By what percentage was the number of persons 15 years old or over in Denmark in 2017 larger than the number of persons belonging to the same age group in Finland (rounded to two decimal places)?",
     "options": [
@@ -1620,7 +1620,7 @@
   {
     "id": "n_102",
     "set_id": "set_034",
-    "set_image": "ns_034.png",
+    "set_image": "n_034.png",
     "tags": [],
     "prompt": "Q3. What was the average change per country in the 5 countries in the share of persons aged 15-64 between 2007 and 2017?",
     "options": [
@@ -1636,7 +1636,7 @@
   {
     "id": "n_103",
     "set_id": "set_035",
-    "set_image": "ns_035.png",
+    "set_image": "n_035.png",
     "tags": [],
     "prompt": "Q1. Which forestry has the most productive employees?",
     "options": [
@@ -1652,7 +1652,7 @@
   {
     "id": "n_104",
     "set_id": "set_035",
-    "set_image": "ns_035.png",
+    "set_image": "n_035.png",
     "tags": [],
     "prompt": "Q2. If 50 tonnes of wood are needed for each outdoor furniture shipment, how many shipments could have been manufactured in total relying on all forestries if 10% of the wood used for roofing had been shifted to outdoor furniture?",
     "options": [
@@ -1668,7 +1668,7 @@
   {
     "id": "n_105",
     "set_id": "set_035",
-    "set_image": "ns_035.png",
+    "set_image": "n_035.png",
     "tags": [],
     "prompt": "Q3. Based on the average of all five forestries, how much roofing wood is supplied by each forestry employee?",
     "options": [
@@ -1684,7 +1684,7 @@
   {
     "id": "n_106",
     "set_id": "set_036",
-    "set_image": "ns_036.png",
+    "set_image": "n_036.png",
     "tags": [],
     "prompt": "Q1. Assuming a glass is a fifth of a bottle, which wine provides the most extra profit in euro terms when sold by the glass?",
     "options": [
@@ -1700,7 +1700,7 @@
   {
     "id": "n_107",
     "set_id": "set_036",
-    "set_image": "ns_036.png",
+    "set_image": "n_036.png",
     "tags": [],
     "prompt": "Q2. The restaurant makes 220% profit on all bottles of wine. In one evening they make €287.10 profit on Sancerre alone. How many bottles of Sancerre did they sell?",
     "options": [
@@ -1716,7 +1716,7 @@
   {
     "id": "n_108",
     "set_id": "set_036",
-    "set_image": "ns_036.png",
+    "set_image": "n_036.png",
     "tags": [],
     "prompt": "Q3. If a glass is 187.5ml and a bottle is 750ml, what is the percentage increase in revenue on a bottle of Tavel when sold by the glass?",
     "options": [
@@ -1732,7 +1732,7 @@
   {
     "id": "n_109",
     "set_id": "set_037",
-    "set_image": "ns_037.png",
+    "set_image": "n_037.png",
     "tags": [],
     "prompt": "Q1. In the medley, the winner spent 26.2% of the time on the butterfly section of the race. What was his average speed during that leg of the race?",
     "options": [
@@ -1748,7 +1748,7 @@
   {
     "id": "n_110",
     "set_id": "set_037",
-    "set_image": "ns_037.png",
+    "set_image": "n_037.png",
     "tags": [],
     "prompt": "Q2. How much faster was the gold medal winner than the bronze medal winner in the 200m backstroke event?",
     "options": [
@@ -1764,7 +1764,7 @@
   {
     "id": "n_111",
     "set_id": "set_037",
-    "set_image": "ns_037.png",
+    "set_image": "n_037.png",
     "tags": [],
     "prompt": "Q3. From the moment that the gold medallist finished until he himself finished, the freestyle silver medal winner swam 10% faster than his overall average. To the nearest centimetre, by what distance did the gold medallist beat the silver medallist? Q",
     "options": [
@@ -1780,7 +1780,7 @@
   {
     "id": "n_112",
     "set_id": "set_038",
-    "set_image": "ns_038.png",
+    "set_image": "n_038.png",
     "tags": [],
     "prompt": "Q1. If China exported 30% of its steel production to the United States in 2014, how much steel did the US use in that year?",
     "options": [
@@ -1796,7 +1796,7 @@
   {
     "id": "n_113",
     "set_id": "set_038",
-    "set_image": "ns_038.png",
+    "set_image": "n_038.png",
     "tags": [],
     "prompt": "Q2. How much more steel did the EU export in 2013 than Japan?",
     "options": [
@@ -1812,7 +1812,7 @@
   {
     "id": "n_114",
     "set_id": "set_038",
-    "set_image": "ns_038.png",
+    "set_image": "n_038.png",
     "tags": [],
     "prompt": "Q3. Approximately what percentage of global steel production did 2013 exports make up if production in every region was the same in 2013 as in 2014?",
     "options": [
@@ -1828,7 +1828,7 @@
   {
     "id": "n_115",
     "set_id": "set_039",
-    "set_image": "ns_039.png",
+    "set_image": "n_039.png",
     "tags": [],
     "prompt": "Q1. Generation of electricity rose by 10% between 2005 and 2010. Tidal power generation doubled over that period. What percentage of the electricity was generated by tidal power in 2005?",
     "options": [
@@ -1844,7 +1844,7 @@
   {
     "id": "n_116",
     "set_id": "set_039",
-    "set_image": "ns_039.png",
+    "set_image": "n_039.png",
     "tags": [],
     "prompt": "Q2. In 2010, 2.4 million kWh of electricity was generated from biomass. How much was generated from solar power (in millions of kWh)?",
     "options": [
@@ -1860,7 +1860,7 @@
   {
     "id": "n_117",
     "set_id": "set_039",
-    "set_image": "ns_039.png",
+    "set_image": "n_039.png",
     "tags": [],
     "prompt": "Q3. If total electricity generation rose by 10% between 2005 and 2010, what was the percentage change in fossil fuel generated electricity over that time?",
     "options": [
@@ -1876,7 +1876,7 @@
   {
     "id": "n_118",
     "set_id": "set_040",
-    "set_image": "ns_040.png",
+    "set_image": "n_040.png",
     "tags": [],
     "prompt": "Q1. Assuming a sample size of 1000 children, Q where each gender is represented equally, by what percentage did the number of boys who like reading decrease from 2010 to 2014?",
     "options": [
@@ -1892,7 +1892,7 @@
   {
     "id": "n_119",
     "set_id": "set_040",
-    "set_image": "ns_040.png",
+    "set_image": "n_040.png",
     "tags": [],
     "prompt": "Q2. What was the sample size if in 2012 the number of boys and girls who liked reading were both 150?",
     "options": [
@@ -1908,7 +1908,7 @@
   {
     "id": "n_120",
     "set_id": "set_040",
-    "set_image": "ns_040.png",
+    "set_image": "n_040.png",
     "tags": [],
     "prompt": "Q3. Assuming an overall sample size of 1000 children where the four different age groups are equally represented, and in each age group the genders are also equally represented, what was the number of boys aged 9 to 11 who liked reading in 2010?",
     "options": [
