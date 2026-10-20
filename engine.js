@@ -1,3 +1,5 @@
+import { getQuestionImagePath } from './questions.js';
+
 let questions = [];
 let currentIndex = 0;
 let focusStartTimestamp = null;
@@ -101,12 +103,12 @@ function renderVerbalQuestion(q) {
 }
 
 function renderNumericalQuestion(q) {
-  const imageFile = q.set_image || `${q.id}.png`;
+  const imagePath = getQuestionImagePath(q);
   elements.questionContent.innerHTML = `
     <div class="prompt-numerical" style="text-align: center;">
-      <img src="./images/${imageFile}" alt="Numerical Reference Chart" style="max-width: 100%; height: auto;" 
+      <img src="${imagePath}" alt="Numerical Reference Chart" style="max-width: 100%; height: auto;" 
            onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"/>
-      <p style="display:none; color: #888;">[ Reference image: ./images/${imageFile} ]</p>
+      <p style="display:none; color: #888;">[ Reference image: ${imagePath} ]</p>
       <p style="font-size: 1.05rem; margin-top: 10px; text-align: left;">${q.prompt}</p>
     </div>
   `;
@@ -114,11 +116,12 @@ function renderNumericalQuestion(q) {
 
 function renderAbstractQuestion(q) {
   // Container isolated for spatial image rendering
+  const imagePath = getQuestionImagePath(q);
   elements.questionContent.innerHTML = `
     <div class="prompt-abstract" style="text-align: center;">
-      <img src="./images/${q.id}.png" alt="Abstract Diagram" style="max-width: 100%; height: auto;" 
+      <img src="${imagePath}" alt="Abstract Diagram" style="max-width: 100%; height: auto;" 
            onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"/>
-      <p style="display:none; color: #888;">[ Diagram image: ./images/${q.id}.png ]</p>
+      <p style="display:none; color: #888;">[ Diagram image: ${imagePath} ]</p>
       <p style="font-size: 1.05rem; margin-top: 10px;">${q.prompt}</p>
     </div>
   `;
