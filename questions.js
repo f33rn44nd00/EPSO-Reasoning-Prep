@@ -16,6 +16,41 @@ function shuffleAndSample(array, size) {
   return pool.slice(0, count);
 }
 
+  // One fetch per category per page load; shared by the test loader and past-report rebuilds
+  const bankCache = {};
+
+  /**
+   * Loads (and caches) the full question bank for a category.
+   * @param {string} category - 'verbal', 'numerical', or 'abstract'
+   * @returns {Promise<Array<Object>>}
+   */
+  export function loadQuestionBank(category) {
+    if (!bankCache[category]) {
+      const jsonUrl = new URL(`./${category}.json`, import.meta.url).href;
+      bankCache[category] = fetch(jsonUrl)
+        .then((response) => {
+          if (!response.ok) throw new Error(`Failed to load ${category}.json (${response.status})`);
+          return response.json();
+        })
+        .catch((err) => {
+          delete bankCache[category]; // don't cache failures, so a retry can succeed
+          throw err;
+        });
+    }
+    return bankCache[category];
+  }
+
+  /**
+   * Image path for a question, or null for verbal questions.
+   * Numerical questions share one chart per set (set_image); abstract questions
+   * have their own diagram.
+   */
+  export function getQuestionImagePath(q) {
+    if (q.category === "numerical") return `./images/${q.set_image || q.id + ".png"}`;
+    if (q.category === "abstract") return `./images/${q.image || q.id + ".png"}`;
+    return null;
+  }
+
 /**
  * Main loader orchestrator
  * @param {string} category - 'verbal', 'numerical', or 'abstract'
@@ -24,14 +59,7 @@ function shuffleAndSample(array, size) {
  */
 export async function initTestSession(category = "verbal", allowRepeats = false, seenIds = []) {
   try {
-    const jsonUrl = new URL(`./${category}.json`, import.meta.url).href;
-    const response = await fetch(jsonUrl);
-    
-    if (!response.ok) {
-      throw new Error(`Failed to load ${category}.json (${response.status})`);
-    }
-
-    const fullBank = await response.json();
+    const fullBank = await loadQuestionBank(category);
     let selected = [];
 
     if (category === "numerical") {

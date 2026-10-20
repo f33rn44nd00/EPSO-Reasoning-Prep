@@ -59,6 +59,7 @@
     </div>
 
     <button id="start-test-btn">Start Test Session</button>
+    <button id="view-history-btn" style="margin-left: 8px;">View Past Results</button>
   </div>
 
   <!-- VIEW 3: Test Engine Screen -->
@@ -93,12 +94,40 @@
     <div id="palette-container" style="display: flex; flex-wrap: wrap; gap: 5px;"></div>
   </div>
 
+  <!-- VIEW 5: Past Results List -->
+  <div id="history-section" hidden style="margin-top: 20px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; background: #f0f4f8; padding: 15px; border-radius: 4px;">
+      <h2>Past Results</h2>
+      <button id="history-back-btn">Back</button>
+    </div>
+
+    <p id="history-status" style="margin: 15px 0;"></p>
+    <button id="history-retry-btn" hidden>Retry</button>
+
+    <table id="history-table" hidden style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+      <thead>
+        <tr style="text-align: left;">
+          <th style="padding: 6px 8px; border-bottom: 2px solid #ccc;">Date</th>
+          <th style="padding: 6px 8px; border-bottom: 2px solid #ccc;">Category</th>
+          <th style="padding: 6px 8px; border-bottom: 2px solid #ccc;">Score</th>
+          <th style="padding: 6px 8px; border-bottom: 2px solid #ccc;">Time</th>
+          <th style="padding: 6px 8px; border-bottom: 2px solid #ccc;"></th>
+        </tr>
+      </thead>
+      <tbody id="history-body"></tbody>
+    </table>
+  </div>
+
   <!-- VIEW 4: Dual-Column Report View -->
   <div id="report-section" hidden style="margin-top: 20px;">
     <div style="display: flex; justify-content: space-between; align-items: center; background: #f0f4f8; padding: 15px; border-radius: 4px;">
       <h2>Test Performance Report</h2>
       <button id="retake-btn">Return to Setup</button>
+      <button id="report-back-btn" hidden>Back to list</button>
     </div>
+
+  <p id="report-subtitle" hidden style="margin: 10px 0 0; font-weight: bold;"></p>
+  <p id="report-notice" hidden style="margin: 10px 0; padding: 8px; background: #fff3cd; border-radius: 4px;"></p>
 
   <div id="save-status" style="margin: 10px 0; padding: 10px; border-radius: 4px; background: #f5f5f5;">
       <span id="save-status-text"></span>
@@ -150,6 +179,8 @@
     import { initTestSession } from './questions.js';
     import { startTestSession, finishTestSession } from './engine.js';
     import { generateReport, buildSavePayload, generateAttemptId, sendResultToGAS } from './analytics.js';
+    import { renderReportView } from './report.js';
+    import { loadHistory } from './history.js';
 
     // Core Views
     const loginSection = document.getElementById('login-section');
@@ -168,6 +199,14 @@
     const allowRepeatsCb = document.getElementById('allow-repeats-cb');
     const startTestBtn = document.getElementById('start-test-btn');
     const retakeBtn = document.getElementById('retake-btn');
+    const viewHistoryBtn = document.getElementById('view-history-btn');
+    const historySection = document.getElementById('history-section');
+    const historyBackBtn = document.getElementById('history-back-btn');
+    const historyRetryBtn = document.getElementById('history-retry-btn');
+    const historyStatus = document.getElementById('history-status');
+    const historyTable = document.getElementById('history-table');
+    const historyBody = document.getElementById('history-body');
+    const reportBackBtn = document.getElementById('report-back-btn'); 
 
     // Module 3 Engine Elements Mapping
     const domElements = {
@@ -243,6 +282,7 @@
       reportSection.hidden = false;
 
       renderReportView(report);
+      setReportMode('instant');
 
       // In-Memory update of seen IDs
       if (sessionData.answeredIds.length > 0) {
@@ -315,70 +355,122 @@
     });
 
     // Report Renderer
-    function renderReportView(report) {
-      // Right Column Summary Metrics
-      document.getElementById('diag-score').textContent = `${report.score} / ${report.total} (${report.percentage}%)`;
-      document.getElementById('diag-pace').textContent = `Total: ${Math.floor(report.totalTimeSpentSec / 60)}m ${report.totalTimeSpentSec % 60}s | Avg: ${report.avgTimePerQ}s / q`;
+    // ---- Report mode: instant report after a test vs. report rebuilt from history
+    function setReportMode(mode) {
+      const isHistory = mode === 'history';
+      retakeBtn.hidden = isHistory;
+      reportBackBtn.hidden = !isHistory;
+      document.getElementById('save-status').hidden = isHistory;
+    }
 
-      renderTagList('diag-missed-tags', report.diagnostics.missedTags);
-      renderTagList('diag-flagged-tags', report.diagnostics.flaggedTags);
-      renderTagList('diag-hesitation-tags', report.diagnostics.hesitationTags);
+    // ---- Past results
+    function formatDuration(sec) {
+      return `${Math.floor(sec / 60)}m ${sec % 60}s`;
+    }
 
-      const sinksContainer = document.getElementById('diag-time-sinks');
-      sinksContainer.innerHTML = report.timeSinks.length > 0 
-        ? report.timeSinks.map(ts => `<li>Question ${ts.index}: <strong>${ts.timeSpentSec}s</strong></li>`).join('')
-        : "<li>None identified</li>";
+    function capitalize(text) {
+      return text.charAt(0).toUpperCase() + text.slice(1);
+    }
 
-      // Left Column Review Stream
-      const streamContainer = document.getElementById('review-stream-container');
-      streamContainer.innerHTML = "";
+    function formatTimestamp(iso) {
+      const d = new Date(iso);
+      return isNaN(d) ? String(iso) : d.toLocaleString();
+    }
 
-      report.details.forEach((q, idx) => {
-        const isCorrect = q.selected_answer === q.correctIndex;
-        const card = document.createElement('div');
-        card.className = `q-card ${isCorrect ? 'correct' : 'incorrect'}`;
+    function scoreText(item) {
+      if (!item.report) {
+        return item.missing > 0
+          ? `Unavailable (${item.missing} questions removed)`
+          : 'Unavailable (unreadable data)';
+      }
+      const base = `${item.report.score} / ${item.report.total} (${item.report.percentage}%)`;
+      return item.missing > 0 ? `${base} ⚠️ ${item.missing} unavailable` : base;
+    }
 
-        const tagsHTML = (q.tags || []).map(t => `<span class="tag-badge">${t.replace(/_/g, ' ')}</span>`).join('');
-        const flagIndicator = q.was_flagged ? " 🚩 [Flagged]" : "";
+    async function openHistory() {
+      welcomeSection.hidden = true;
+      historySection.hidden = false;
+      await loadHistoryList();
+    }
 
-        let optionsHTML = "";
-        q.options.forEach((optText, optIdx) => {
-          let optClass = "opt-review";
-          if (optIdx === q.correctIndex) optClass += " opt-correct";
-          else if (optIdx === q.selected_answer) optClass += " opt-wrong";
+    async function loadHistoryList() {
+      historyTable.hidden = true;
+      historyRetryBtn.hidden = true;
+      historyStatus.textContent = '⏳ Loading past results...';
 
-          optionsHTML += `
-            <div class="${optClass}">
-              ${String.fromCharCode(65 + optIdx)}) ${optText}
-              ${optIdx === q.correctIndex ? ' ✅' : ''}
-              ${optIdx === q.selected_answer && !isCorrect ? ' ❌ (Your choice)' : ''}
-            </div>
-          `;
+      try {
+        renderHistoryList(await loadHistory(currentUsername));
+      } catch (err) {
+        console.warn('History load failed:', err, err.detail || '');
+        historyStatus.textContent = `⚠️ Could not load past results [${err.code || 'unknown'}]: ${err.message}`;
+        historyRetryBtn.hidden = false;
+      }
+    }
+
+    function renderHistoryList(items) {
+      historyBody.innerHTML = '';
+
+      if (items.length === 0) {
+        historyStatus.textContent = 'No tests taken yet.';
+        return;
+      }
+
+      historyStatus.textContent = '';
+      historyTable.hidden = false;
+
+      items.forEach(item => {
+        const tr = document.createElement('tr');
+        const cells = [
+          formatTimestamp(item.timestamp),
+          capitalize(item.category),
+          scoreText(item),
+          item.report ? formatDuration(item.report.totalTimeSpentSec) : '-'
+        ];
+
+        cells.forEach(text => {
+          const td = document.createElement('td');
+          td.textContent = text;
+          td.style.cssText = 'padding: 6px 8px; border-bottom: 1px solid #ddd;';
+          tr.appendChild(td);
         });
 
-        card.innerHTML = `
-          <div style="display: flex; justify-content: space-between; font-size: 0.9rem; color: #555;">
-            <span><strong>Q${idx + 1}</strong> (${isCorrect ? 'Correct' : 'Incorrect'})${flagIndicator}</span>
-            <span>Time: ${q.time_spent_sec}s | Edits: ${q.change_count}</span>
-          </div>
-          <p style="margin: 8px 0;">${q.prompt}</p>
-          <div>${optionsHTML}</div>
-          <div style="margin-top: 8px; font-size: 0.85rem; color: #444; background: #fff; padding: 6px; border-left: 3px solid #007bb5;">
-            <strong>Explanation:</strong> ${q.explanation || "N/A"}
-          </div>
-          <div style="margin-top: 6px;">${tagsHTML}</div>
-        `;
+        const actionTd = document.createElement('td');
+        actionTd.style.cssText = 'padding: 6px 8px; border-bottom: 1px solid #ddd;';
+        const viewBtn = document.createElement('button');
+        viewBtn.textContent = 'View';
+        viewBtn.disabled = !item.report;
+        viewBtn.addEventListener('click', () => showHistoryReport(item));
+        actionTd.appendChild(viewBtn);
+        tr.appendChild(actionTd);
 
-        streamContainer.appendChild(card);
+        historyBody.appendChild(tr);
       });
     }
 
-    function renderTagList(elementId, tagArray) {
-      const el = document.getElementById(elementId);
-      el.innerHTML = tagArray.length > 0
-        ? tagArray.map(item => `<li>${item.tag.replace(/_/g, ' ')} (<strong>${item.count}</strong>)</li>`).join('')
-        : "<li>None recorded</li>";
+    function showHistoryReport(item) {
+      historySection.hidden = true;
+      reportSection.hidden = false;
+      setReportMode('history');
+
+      renderReportView(item.report, {
+        subtitle: `${capitalize(item.category)} · ${formatTimestamp(item.timestamp)}`,
+        notice: item.missing > 0
+          ? `⚠️ ${item.missing} question(s) from this test are no longer available and were left out of this report.`
+          : ''
+      });
+      window.scrollTo(0, 0);
     }
+
+    viewHistoryBtn.addEventListener('click', openHistory);
+    historyRetryBtn.addEventListener('click', loadHistoryList);
+    historyBackBtn.addEventListener('click', () => {
+      historySection.hidden = true;
+      welcomeSection.hidden = false;
+    });
+    reportBackBtn.addEventListener('click', () => {
+      reportSection.hidden = true;
+      historySection.hidden = false;
+    });    
   </script>
 </body>
 </html>

@@ -107,9 +107,6 @@ export function buildSavePayload(username, category, reportData, answeredIds, at
     attemptId: attemptId,
     username: username,
     category: category,
-    score: reportData.score,
-    total: reportData.total,
-    timeSpentSec: reportData.totalTimeSpentSec,
     answeredIds: answeredIds,
     details: reportData.details.map(q => ({
       id: q.id,
